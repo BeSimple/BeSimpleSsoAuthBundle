@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+    <h1>You need to authenticate</h1>
+
+    {% if exception %}
+        <p class="warning">{{ exception.message }}</p>
+    {% endif %}
+
+    <p class="notice">
+        Follow this link to autheticate with external
+        <strong>{{ provider.protocolName | upper }}</strong> server :
+        <a href="{{ provider.server.loginUrl }}">{{ provider.server.loginUrl }}</a>.
+    </p>
+
+{% endblock body %}
