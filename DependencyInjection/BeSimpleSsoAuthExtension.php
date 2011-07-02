@@ -16,8 +16,6 @@ class BeSimpleSsoAuthExtension extends Extension
         $processor = new Processor();
         $config    = $processor->processConfiguration(new Configuration($container->getParameter('kernel.debug')), $config);
 
-        var_dump($config); die;
-
         foreach ($config as $serverName => $serverConfig) {
             $container->setParameter(sprintf('be_simple_sso_auth.%s_config', $serverName), $serverConfig);
         }
