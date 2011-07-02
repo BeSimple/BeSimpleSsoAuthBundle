@@ -20,7 +20,7 @@ Get started:
 ------------
 
 
-**Install bundle & dependency:**
+###Install bundle & dependency:
 
 If already using GIT for your project:
 
@@ -39,7 +39,7 @@ Else:
     git clone https://github.com/kriswallsmith/Buzz.git vendor/buzz
 
 
-**Enable bundle & dependency:**
+###Enable bundle & dependency:
 
 Add bundle to your kernel class:
 
@@ -75,12 +75,16 @@ Add the factories to your secutity config:
         # ...
 
 
+###Run the tests:
+
+    phpunit -c app vendor/bundles/BeSimple/SsoAuthBundle
+
 
 Trusted SSO:
 ------------
 
 
-**Configure your firewall:**
+###Configure your firewall:
 
 An example in the YAML format:
 
@@ -101,7 +105,7 @@ The full list of settings:
 -   `check_url`:
 
 
-**Configure your server:**
+###Configure your server:
 
     # config.yml
     be_simple_sso_auth:
@@ -123,11 +127,11 @@ Open SSO:
 ---------
 
 
-**To be implemented ...**
+*To be implemented ...*
 
 
 Create custom SSO provider:
 ---------------------------
 
 
-**To be continued ...**
+*To be continued ...*
