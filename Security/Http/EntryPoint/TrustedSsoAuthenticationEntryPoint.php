@@ -24,18 +24,18 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
     /**
      * @var array
      */
-    protected $ssoConfig;
+    protected $config;
 
     /**
      * @param HttpKernel $httpKernel
      * @param SsoProviderFactory $ssoFactory
      * @param array $ssoConfig
      */
-    public function __construct(HttpKernel $httpKernel, SsoFactory $ssoFactory, array $ssoConfig)
+    public function __construct(HttpKernel $httpKernel, SsoFactory $ssoFactory, array $config)
     {
         $this->httpKernel = $httpKernel;
         $this->ssoFactory = $ssoFactory;
-        $this->ssoConfig  = $ssoConfig;
+        $this->config     = $config;
     }
 
     /**
@@ -45,8 +45,8 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $controller = $this->ssoConfig['login_controller'];
-        $provider   = $this->ssoFactory->createProvider($this->ssoConfig);
+        $controller = $this->config['login_controller'];
+        $provider   = $this->ssoFactory->createProvider($this->config['server'], $this->config['check_path']);
 
         if ($controller) {
             return $this->httpKernel->forward($controller, array(

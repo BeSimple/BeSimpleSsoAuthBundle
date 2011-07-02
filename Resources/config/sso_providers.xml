@@ -5,21 +5,21 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="be_simple_sso_auth.http_client.class">Buzz\Browser</parameter>
         <parameter key="be_simple_sso_auth.sso_factory.class">BeSimple\SsoAuthBundle\Sso\SsoFactory</parameter>
         <parameter key="be_simple_sso_auth.sso_provider.cas.class">BeSimple\SsoAuthBundle\Sso\Cas\CasProvider</parameter>
+        <parameter key="be_simple_sso_auth.sso_server.cas.class">BeSimple\SsoAuthBundle\Sso\Cas\CasServer</parameter>
     </parameters>
 
     <services>
-        <service id="be_simple_sso_auth.http_client" class="%be_simple_sso_auth.http_client.class%" />
-
         <service id="be_simple_sso_auth.sso_factory" class="%be_simple_sso_auth.sso_factory.class%">
             <argument type="service" id="service_container" />
         </service>
 
+        <service id="be_simple_sso_auth.sso_server.cas" class="%be_simple_sso_auth.sso_server.cas.class%" />
+
         <service id="be_simple_sso_auth.sso_provider.cas" class="%be_simple_sso_auth.sso_provider.cas.class%">
-            <argument type="service" id="be_simple_sso_auth.http_client" />
-            <tag name="be_simple_sso_auth.sso_provider" />
+            <argument type="service" id="be_simple_sso_auth.sso_server.cas" />
+            <tag name="be_simple_sso_auth.sso_provider" protocol="cas" />
         </service>
     </services>
 </container>

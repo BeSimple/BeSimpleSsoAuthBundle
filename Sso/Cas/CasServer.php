@@ -4,6 +4,7 @@ namespace BeSimple\SsoAuthBundle\Sso\Cas;
 
 use BeSimple\SsoAuthBundle\Sso\AbstractSsoServer;
 use BeSimple\SsoAuthBundle\Sso\SsoServerInterface;
+use Buzz\Message\Request;
 use Buzz\Message\Response;
 
 class CasServer extends AbstractSsoServer implements SsoServerInterface
@@ -21,9 +22,17 @@ class CasServer extends AbstractSsoServer implements SsoServerInterface
     public function getValidation($credentials)
     {
         $actions = array(1 => 'validation', 2 => 'serviceValidation');
-        $url     = sprintf('%s/%s?service=%s&ticket=%s', $this->baseUrl, $actions[$this->version], urlencode($this->checkUrl), $credentials);
-        $class   = sprintf('Cas%sValidation', $this->version);
+        $class   = sprintf('CasV%sValidation', $this->version);
+        $request = new Request($this->validationMethod);
 
-        return new $class($this->browser->get($url));
+        $request->fromUrl(sprintf(
+            '%s/%s?service=%s&ticket=%s',
+            $this->baseUrl,
+            $actions[$this->version],
+            urlencode($this->checkUrl),
+            $credentials
+        ));
+
+        return new $class($this->validationClient->send($request, new Response()));
     }
 }

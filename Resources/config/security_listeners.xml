@@ -31,7 +31,6 @@
             <argument type="service" id="security.http_utils" />
             <argument /><!-- $providerKey -->
             <argument type="service" id="be_simple_sso_auth.sso_factory" />
-            <argument type="collection" /><!-- $ssoConfig -->
             <argument type="collection" /><!-- $options = array() -->
             <argument type="service" id="security.authentication.success_handler" on-invalid="null" />
             <argument type="service" id="security.authentication.failure_handler" on-invalid="null" />

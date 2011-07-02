@@ -12,9 +12,7 @@ class TrustedSsoFactory extends AbstractSsoFactory
 {
     public function __construct()
     {
-        $this->addOption('protocol');
-        $this->addOption('base_url');
-        $this->addOption('version', 1);
+        $this->addOption('server');
         $this->addOption('login_controller', 'BeSimpleSsoAuthBundle:TrustedSso:login');
     }
 
@@ -45,17 +43,16 @@ class TrustedSsoFactory extends AbstractSsoFactory
         $listenerId = $this->getListenerId();
         $listener = new DefinitionDecorator($listenerId);
         $listener->replaceArgument(4, $id);
-        $listener->replaceArgument(6, $config);
-        $listener->replaceArgument(7, array_intersect_key($config, $this->options));
+        $listener->replaceArgument(6, array_intersect_key($config, $this->options));
 
         // success handler
         if (isset($config['success_handler'])) {
-            $listener->replaceArgument(8, new Reference($config['success_handler']));
+            $listener->replaceArgument(7, new Reference($config['success_handler']));
         }
 
         // failure handler
         if (isset($config['failure_handler'])) {
-            $listener->replaceArgument(9, new Reference($config['failure_handler']));
+            $listener->replaceArgument(8, new Reference($config['failure_handler']));
         }
 
         $listenerId .= '.'.$id;

@@ -5,27 +5,47 @@ namespace BeSimple\SsoAuthBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\NodeInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration
+class Configuration implements ConfigurationInterface
 {
+    private $debug;
+
     /**
-     * Generates the configuration tree.
-     *
-     * @return NodeInterface
+     * @param Boolean $debug
      */
-    public function getConfigTree()
+    public function  __construct($debug)
+    {
+        $this->debug = (Boolean) $debug;
+    }
+
+    /**
+     * @return TreeBuilder
+     */
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
 
         $treeBuilder
             ->root('be_simple_sso_auth')
-            ->children()
-//                ->scalarNode('request_client')->defaultValue('curl')->end()
-//                ->scalarNode('request_timeout')->defaultValue(5)->end()
-//                ->scalarNode('request_max_redirects')->defaultValue(5)->end()
+            ->prototype('array')
+                ->fixXmlConfig('server')
+                ->children()
+                    ->scalarNode('protocol')->cannotBeEmpty()->end()
+                    ->scalarNode('base_url')->cannotBeEmpty()->end()
+                    ->scalarNode('version')->defaultValue(1)->end()
+                    ->arrayNode('validation_request')
+                        ->children()
+                            ->scalarNode('client')->defaultValue('FileGetContents')->end()
+                            ->scalarNode('method')->defaultValue('get')->end()
+                            ->scalarNode('timeout')->defaultValue(5)->end()
+                            ->scalarNode('max_redirects')->defaultValue(5)->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
-        return $treeBuilder->buildTree();
+        return $treeBuilder;
     }
 }

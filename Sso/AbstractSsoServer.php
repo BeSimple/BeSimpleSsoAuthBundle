@@ -2,21 +2,24 @@
 
 namespace BeSimple\SsoAuthBundle\Sso;
 
-use Buzz\Browser;
+use Buzz\Client\ClientInterface;
+use Buzz\Message\Request;
 
 abstract class AbstractSsoServer
 {
-    protected $browser;
+    protected $validationClient;
+    protected $validationMethod;
     protected $baseUrl;
     protected $checkUrl;
     protected $version;
 
-    public function __construct(Browser $browser, $baseUrl, $checkUrl, $version = 1)
+    public function __construct()
     {
-        $this->browser  = $browser;
-        $this->baseUrl  = $baseUrl;
-        $this->checkUrl = $checkUrl;
-        $this->version  = $version;
+        $this->validationClient = null;
+        $this->validationMethod = Request::METHOD_GET;
+        $this->baseUrl  = null;
+        $this->checkUrl = null;
+        $this->version  = 1;
     }
 
     public function getId()
@@ -24,9 +27,28 @@ abstract class AbstractSsoServer
         return $this->baseUrl;
     }
 
-    public function setBaseUrl($baseUrl)
+    public function getValidationClient()
     {
-        $this->baseUrl = $baseUrl;
+        return $this->validationClient;
+    }
+
+    public function setValidationClient(ClientInterface $client)
+    {
+        $this->validationClient = $client;
+
+        return $this;
+    }
+
+    public function getValidationMethod()
+    {
+        return $this->validationMethod;
+    }
+
+    public function setValidationMethod($validationMethod)
+    {
+        $this->validationMethod = strtoupper($validationMethod);
+
+        return $this;
     }
 
     public function getBaseUrl()
@@ -34,9 +56,11 @@ abstract class AbstractSsoServer
         return $this->baseUrl;
     }
 
-    public function setCheckUrl($checkUrl)
+    public function setBaseUrl($baseUrl)
     {
-        $this->checkUrl = $checkUrl;
+        $this->baseUrl = $baseUrl;
+
+        return $this;
     }
 
     public function getCheckUrl()
@@ -44,13 +68,22 @@ abstract class AbstractSsoServer
         return $this->checkUrl;
     }
 
-    public function setVersion($version)
+    public function setCheckUrl($checkUrl)
     {
-        $this->version = $version;
+        $this->checkUrl = $checkUrl;
+
+        return $this;
     }
 
     public function getVersion()
     {
         return $this->version;
+    }
+
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
     }
 }

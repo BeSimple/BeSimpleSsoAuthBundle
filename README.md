@@ -20,7 +20,7 @@ Get started:
 ------------
 
 
-**Install bundle dependencies:**
+**Install bundle & dependency:**
 
 If already using GIT for your project:
 
@@ -39,7 +39,7 @@ Else:
     git clone https://github.com/kriswallsmith/Buzz.git vendor/buzz
 
 
-**Enable bundle & dependencies:**
+**Enable bundle & dependency:**
 
 Add bundle to your kernel class:
 
@@ -67,12 +67,12 @@ Add bundle & Buzz library to your autoload file:
 
 Add the factories to your secutity config:
 
-    // app/config/security.yml
+    # app/config/security.yml
     security:
-        // ...
+        # ...
         factories:
             - "%kernel.root_dir%/../vendor/bundles/BeSimple/SsoAuthBundle/Resources/config/security_factories.xml"
-        // ...
+        # ...
 
 
 
@@ -80,31 +80,43 @@ Trusted SSO:
 ------------
 
 
-**How to configure:**
+**Configure your firewall:**
 
-An example for cas:
+An example in the YAML format:
 
-    // security.yml
+    # security.yml
     security:
-        // ...
+        # ...
         firewalls:
             my_firewall:
                 pattern: ^/secured-area/.*$
                 trusted_sso:
-                    protocol:   cas
-                    version:    2
-                    base_url:   my.cas_server.com
-                    check_path: /sso/login
-        //...
+                    server: my_server
+                    # ...
+        #...
 
-List of configuration parameters:
+The full list of settings:
 
--   protocol: the protocol key (cas, kerberos ...)
--   version: the protocol version (1 or 2 for cas)
--   base_url: SSO server base URL
--   chack_path: as usual ...
+-   `server`: the SSO server name (this server is configured under the `be_simple_sso_auth` section.
+-   `check_url`:
 
-Other settings are used by other security components and have no action on this bundle.
+
+**Configure your server:**
+
+    # config.yml
+    be_simple_sso_auth:
+        my_server:
+            protocol: cas                           # required
+            version: 2
+            base_url: http://cas.domain.tls/path    # required
+            validation_request:
+                client: Curl                        # or FileGetContents
+                method: get
+                timeout: 5                          # in seconds
+                max_redirects: 5
+        # ...
+
+Note that you can define a `default` section to store your default values.
 
 
 Open SSO:
@@ -112,3 +124,10 @@ Open SSO:
 
 
 **To be implemented ...**
+
+
+Create custom SSO provider:
+---------------------------
+
+
+**To be continued ...**
