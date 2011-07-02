@@ -27,16 +27,6 @@ abstract class AbstractSsoProvider
         return new RedirectResponse($this->server->getLoginUrl());
     }
 
-    public function isValidationRequest(Request $request)
-    {
-        return !is_null($this->findCredentials($request));
-    }
-
-    public function createToken(Request $request)
-    {
-        return new SsoToken($this, $this->findCredentials($request));
-    }
-
     public function validateCredentials($credentials)
     {
         return $this->server->getValidation($credentials);
@@ -46,6 +36,4 @@ abstract class AbstractSsoProvider
     {
         return;
     }
-
-    abstract protected function findCredentials(Request $request);
 }

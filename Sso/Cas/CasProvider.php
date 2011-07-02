@@ -10,13 +10,20 @@ use Buzz\Browser;
 
 class CasProvider extends AbstractSsoProvider implements SsoProviderInterface
 {
+    const CREDENTIALS_QUERY_KEY = 'ticket';
+
     public function __construct()
     {
         $this->server = new CasServer();
     }
 
-    protected function findCredentials(Request $request)
+    public function isValidationRequest(Request $request)
     {
-        return $request->query->get('ticket', null);
+        return $request->query->has(self::CREDENTIALS_QUERY_KEY);
+    }
+
+    public function createToken(Request $request)
+    {
+        return new SsoToken($this, $request->query->get(self::CREDENTIALS_QUERY_KEY));
     }
 }
