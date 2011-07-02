@@ -24,10 +24,6 @@ class SsoToken extends AbstractToken
     {
         parent::__construct($roles);
 
-        if (empty($providerKey)) {
-            throw new \InvalidArgumentException('$providerKey must not be empty.');
-        }
-
         $this->ssoProvider = $ssoProvider;
         $this->credentials = $credentials;
 
