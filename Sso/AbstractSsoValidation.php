@@ -21,14 +21,14 @@ abstract class AbstractSsoValidation implements SsoValidationInterface
         $this->status     = self::STATUS_NONE;
         $this->response   = $response;
         $this->username   = null;
-        $this->attributes = null;
+        $this->attributes = array();
         $this->error      = null;
     }
 
     public function isSuccess()
     {
         if ($this->status === self::STATUS_NONE) {
-            $this->status = $this->validateResponse($this->response->getContent())
+            $this->status = $this->validateResponse($this->response)
                 ? self::STATUS_VALID
                 : self::SATUS_INVALID;
         }
@@ -52,8 +52,8 @@ abstract class AbstractSsoValidation implements SsoValidationInterface
 
     public function getError()
     {
-        return $this->error;
+        return trim($this->error, "\t\r\n ");
     }
 
-    abstract protected function validateResponse($content);
+    abstract protected function validateResponse(Response $response);
 }

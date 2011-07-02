@@ -6,7 +6,7 @@ use BeSimple\SsoAuthBundle\Sso\AbstractSsoValidation;
 use BeSimple\SsoAuthBundle\Sso\SsoValidationInterface;
 use Buzz\Message\Response;
  
-class Cas1Validation extends AbstractSsoValidation implements SsoValidationInterface
+class CasV1Validation extends AbstractSsoValidation implements SsoValidationInterface
 {
     protected function validateResponse(Response $response)
     {

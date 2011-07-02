@@ -6,7 +6,7 @@ use BeSimple\SsoAuthBundle\Sso\AbstractSsoValidation;
 use BeSimple\SsoAuthBundle\Sso\SsoValidationInterface;
 use Buzz\Message\Response;
  
-class Cas2Validation extends AbstractSsoValidation implements SsoValidationInterface
+class CasV2Validation extends AbstractSsoValidation implements SsoValidationInterface
 {
     protected function validateResponse(Response $response)
     {
@@ -36,7 +36,7 @@ class Cas2Validation extends AbstractSsoValidation implements SsoValidationInter
                             break;
 
                         case 'cas:attributes':
-                            foreach($child->childrenNodes as $attr) {
+                            foreach($child->childNodes as $attr) {
                                 if ($attr->nodeName != '#text') {
                                     $this->attributes[$attr->nodeName] = $attr->textContent;
                                 }
