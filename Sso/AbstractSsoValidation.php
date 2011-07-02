@@ -6,9 +6,9 @@ use Buzz\Message\Response;
 
 abstract class AbstractSsoValidation implements SsoValidationInterface
 {
-    const STATUS_NONE   = 0;
-    const STATUS_VALID  = 1;
-    const SATUS_INVALID = -1;
+    const STATUS_NONE    = 0;
+    const STATUS_VALID   = 1;
+    const STATUS_INVALID = -1;
 
     protected $status;
     protected $response;
@@ -42,7 +42,7 @@ abstract class AbstractSsoValidation implements SsoValidationInterface
         if ($this->status === self::STATUS_NONE) {
             $this->status = $this->validateResponse($this->response)
                 ? self::STATUS_VALID
-                : self::SATUS_INVALID;
+                : self::STATUS_INVALID;
         }
 
         return $this->status === self::STATUS_VALID;
