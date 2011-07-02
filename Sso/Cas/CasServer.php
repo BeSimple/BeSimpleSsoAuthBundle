@@ -11,12 +11,12 @@ class CasServer extends AbstractSsoServer implements SsoServerInterface
 {
     public function getLoginUrl()
     {
-        return sprintf('http://%s/login?service=%s', $this->baseUrl, urlencode($this->checkUrl));
+        return sprintf('%s/login?service=%s', $this->baseUrl, urlencode($this->checkUrl));
     }
 
     public function getLogoutUrl()
     {
-        return sprintf('http://%s/logout?service=%s', $this->baseUrl, urlencode($this->checkUrl));
+        return sprintf('%s/logout?service=%s', $this->baseUrl, urlencode($this->checkUrl));
     }
 
     public function getValidation($credentials)
