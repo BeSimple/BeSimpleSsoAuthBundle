@@ -16,13 +16,25 @@ abstract class AbstractSsoValidation implements SsoValidationInterface
     protected $attributes;
     protected $error;
 
-    public function __construct(Response $response)
+    public function __construct(Response $response = null)
     {
         $this->status     = self::STATUS_NONE;
         $this->response   = $response;
         $this->username   = null;
         $this->attributes = array();
         $this->error      = null;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+
+        return $this;
     }
 
     public function isSuccess()

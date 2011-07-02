@@ -10,6 +10,11 @@ use Buzz\Browser;
 
 class CasProvider extends AbstractSsoProvider implements SsoProviderInterface
 {
+    public function __construct()
+    {
+        $this->server = new CasServer();
+    }
+
     protected function findCredentials(Request $request)
     {
         return $request->query->get('ticket', null);
