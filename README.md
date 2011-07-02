@@ -5,7 +5,7 @@ SSO authentication for Symfony2
 **Warning:**
 
 -   Currently under development, unusable for now.
--   No test written.
+-   Only unit tests, missing functional.
 -   Currently implemented: CAS only.
 
 
