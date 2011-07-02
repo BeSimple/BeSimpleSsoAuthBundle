@@ -10,6 +10,15 @@ use Buzz\Client\FileGetContents;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
+    protected $baseUrl      = 'http://sso.server';
+    protected $checkUrl     = 'http://my.project/check';
+    protected $errorMessage = 'error message';
+    protected $username     = 'username';
+    protected $credentials  = 'credentials';
+    protected $attributes   = array('name1' => 'value1', 'name2' => 'value2');
+
+    abstract public function provideServers();
+
     protected function createProvider(SsoProviderInterface $provider, $version, $baseUrl, $checkUrl)
     {
         $this->configureServer($provider->getServer(), $version, $baseUrl, $checkUrl);

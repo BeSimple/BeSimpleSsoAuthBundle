@@ -8,9 +8,6 @@ use Buzz\Client\FileGetContents;
 
 class CasServerTest extends CasTestCase
 {
-    private $baseUrl  = 'http://cas.server';
-    private $checkUrl = 'http://my.project/check';
-
     /**
      * @dataProvider provideServers
      */
@@ -19,13 +16,5 @@ class CasServerTest extends CasTestCase
         $this->assertEquals(sprintf('%s/login?service=%s', $this->baseUrl, urlencode($this->checkUrl)), $server->getLoginUrl());
         $this->assertEquals(sprintf('%s/logout?service=%s', $this->baseUrl, urlencode($this->checkUrl)), $server->getLogoutUrl());
         $this->assertEquals($this->baseUrl, $server->getId());
-    }
-
-    public function provideServers()
-    {
-        return array(
-            array($this->createServer(1, $this->baseUrl, $this->checkUrl)),
-            array($this->createServer(2, $this->baseUrl, $this->checkUrl)),
-        );
     }
 }

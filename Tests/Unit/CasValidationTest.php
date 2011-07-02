@@ -9,23 +9,12 @@ use BeSimple\SsoAuthBundle\Sso\Cas\CasV2Validation;
 
 class CasValidationTest extends CasTestCase
 {
-    const VERSION1 = 1;
-    const VERSION2 = 2;
-
-    const ATTRIBUTES_NONE   = 0;
-    const ATTRIBUTES_STYLE1 = 1;
-    const ATTRIBUTES_STYLE2 = 2;
-
-    private $error      = 'error message';
-    private $username   = 'username';
-    private $attributes = array('attribute1' => 'value1', 'attribute2' => 'value2');
-
     public function testInvalidV1Response()
     {
-        $validation = $this->createValidation(self::VERSION1, sprintf("no\n%s", $this->error));
+        $validation = $this->createValidation(self::VERSION1, sprintf("no\n%s", $this->errorMessage));
 
         $this->assertFalse($validation->isSuccess());
-        $this->assertEquals($this->error, $validation->getError());
+        $this->assertEquals($this->errorMessage, $validation->getError());
         $this->assertEquals(null, $validation->getUsername());
         $this->assertEquals(null, $validation->getAttributes());
     }
@@ -42,10 +31,10 @@ class CasValidationTest extends CasTestCase
 
     public function testInvalidV2Response()
     {
-        $validation = $this->createValidation(self::VERSION2, $this->createV2InvalidResponse($this->error));
+        $validation = $this->createValidation(self::VERSION2, $this->createV2InvalidResponse($this->errorMessage));
 
         $this->assertFalse($validation->isSuccess());
-        $this->assertEquals($this->error, $validation->getError());
+        $this->assertEquals($this->errorMessage, $validation->getError());
         $this->assertEquals(null, $validation->getUsername());
         $this->assertEquals(null, $validation->getAttributes());
     }
