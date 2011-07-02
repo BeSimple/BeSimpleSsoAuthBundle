@@ -2,10 +2,11 @@
 
 namespace BeSimple\SsoAuthBundle\Tests;
 
+use BeSimple\SsoAuthBundle\Test\CasTestCase;
 use BeSimple\SsoAuthBundle\Sso\Cas\CasServer;
 use Buzz\Client\FileGetContents;
 
-class CasServerTest extends TestCase
+class CasServerTest extends CasTestCase
 {
     private $baseUrl  = 'http://cas.server';
     private $checkUrl = 'http://my.project/check';
@@ -26,21 +27,5 @@ class CasServerTest extends TestCase
             array($this->createServer(1, $this->baseUrl, $this->checkUrl)),
             array($this->createServer(2, $this->baseUrl, $this->checkUrl)),
         );
-    }
-
-    private function createServer($version, $baseUrl, $checkUrl)
-    {
-        $server = new CasServer();
-        $client = new FileGetContents();
-
-        $server
-            ->setBaseUrl($baseUrl)
-            ->setCheckUrl($checkUrl)
-            ->setValidationClient($client)
-            ->setValidationMethod('get')
-            ->setVersion($version)
-        ;
-
-        return $server;
     }
 }

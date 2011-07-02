@@ -3,10 +3,11 @@
 namespace BeSimple\SsoAuthBundle\Tests;
 
 use Buzz\Message\Response;
+use BeSimple\SsoAuthBundle\Test\CasTestCase;
 use BeSimple\SsoAuthBundle\Sso\Cas\CasV1Validation;
 use BeSimple\SsoAuthBundle\Sso\Cas\CasV2Validation;
 
-class CasValidationTest extends TestCase
+class CasValidationTest extends CasTestCase
 {
     const VERSION1 = 1;
     const VERSION2 = 2;
@@ -78,16 +79,6 @@ class CasValidationTest extends TestCase
             array($this->createV2ValidResponse($this->username, $this->attributes, self::ATTRIBUTES_STYLE1)),
             array($this->createV2ValidResponse($this->username, $this->attributes, self::ATTRIBUTES_STYLE2)),
         );
-    }
-
-    private function createValidation($version, $content)
-    {
-        $response = new Response();
-        $response->setContent($content);
-
-        return $version === self::VERSION2
-            ? new CasV2Validation($response)
-            : new CasV1Validation($response);
     }
 
     private function createV2InvalidResponse($error)
