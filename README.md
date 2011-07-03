@@ -19,16 +19,16 @@ SSO authentication for Symfony2
 **SSO systems:**
 
 -   Currently implemented:
-    -   (Central Authentication Service)[http://www.jasig.org/cas]
+    -   Central Authentication Service: http://www.jasig.org/cas
 -   Planed implementations:
-    -   (Codign)[http://cosign.sourceforge.net/]
-    -   (OpenID)[http://openid.net/]
+    -   Codign: http://cosign.sourceforge.net/
+    -   OpenID: http://openid.net/
 -   Other systems:
-    -   (JOSSO)[http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home]
-    -   (OpenAM)[http://www.forgerock.com/openam.html]
-    -   (PubCookie)[http://www.pubcookie.org/]
-    -   (Lightweight Directory Access Protocol)[http://en.wikipedia.org/wiki/LDAP]
-    -   (OAuth)[http://oauth.net/]
+    -   JOSSO: http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home
+    -   OpenAM: http://www.forgerock.com/openam.html
+    -   PubCookie: http://www.pubcookie.org/
+    -   Lightweight Directory Access Protocol: http://en.wikipedia.org/wiki/LDAP
+    -   OAuth: http://oauth.net/
 
 
 Get started:
