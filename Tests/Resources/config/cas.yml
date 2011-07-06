@@ -1,0 +1,20 @@
+imports:
+    - { resource: common.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/Resources/routing/cas.yml"
+
+security:
+    firewalls:
+        cas:
+          pattern: ^/secured.*$
+          trusted_sso:
+              server:     cas
+              check_path: /secured/check
+
+be_simple_sso_auth:
+    cas:
+        protocol: cas
+        version:  2
+        base_url: /server

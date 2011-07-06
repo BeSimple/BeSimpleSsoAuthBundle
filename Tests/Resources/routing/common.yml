@@ -1,0 +1,15 @@
+secured:
+    pattern:  /secured
+    defaults: { _controller: be_simple_sso_auth.test_controller.test:securedAction }
+
+secured:
+    pattern:  /secured/user
+    defaults: { _controller: be_simple_sso_auth.test_controller.test:userAction }
+
+secured:
+    pattern:  /secured/admin
+    defaults: { _controller: be_simple_sso_auth.test_controller.test:adminAction }
+
+anon:
+    pattern:  /anon
+    defaults: { _controller: be_simple_sso_auth.test_controller.test:anonAction }

@@ -1,0 +1,51 @@
+framework:
+    charset:       UTF-8
+    secret:        test
+    csrf_protection:
+        enabled: true
+
+    validation:    { enabled: true, enable_annotations: true }
+    templating:    { engines: ["twig"] }
+    form: ~
+    test: ~
+    session:
+        default_locale: en
+        lifetime:       3600
+        auto_start:     true
+        storage_id:     session.storage.filesystem
+
+services:
+    logger: { class: Symfony\Component\HttpKernel\Log\NullLogger }
+    be_simple_sso_auth.test_controller.test:
+        class: BeSimple\SsoAuthBundle\Tests\Controller\TestController
+        arguments: [@service_container]
+
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+security:
+    factories:
+        - "%kernel.root_dir%/../Resources/config/security_factories.xml"
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    access_control:
+        - { path: /secured/user, roles: ROLE_USER }
+        - { path: /secured/admin, roles: ROLE_ADMIN }
+    providers:
+        in_memory:
+            users:
+                "user": { password: user, roles: ["ROLE_USER"] }
+                "admin": { password: admin, roles: ["ROLE_ADMIN"] }
+
+be_simple_sso_auth:
+    default:
+        username: "{username}"
+        validation_request:
+            timeout: 5
+            max_redirects: 5
+            client: FileGetContents
+            method: get
