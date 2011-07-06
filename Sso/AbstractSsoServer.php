@@ -12,6 +12,7 @@ abstract class AbstractSsoServer
     protected $baseUrl;
     protected $checkUrl;
     protected $version;
+    protected $usernameFormat;
 
     public function __construct()
     {
@@ -83,6 +84,18 @@ abstract class AbstractSsoServer
     public function setVersion($version)
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getUsernameFormat()
+    {
+        return $this->usernameFormat;
+    }
+
+    public function setUsernameFormat($usernameFormat)
+    {
+        $this->usernameFormat = $usernameFormat;
 
         return $this;
     }

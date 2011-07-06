@@ -1,9 +1,8 @@
 <?php
 
-namespace BeSimple\SsoAuthBundle\Tests;
+namespace BeSimple\SsoAuthBundle\Tests\Unit\Cas;
 
 use Buzz\Message\Response;
-use BeSimple\SsoAuthBundle\Test\CasTestCase;
 use BeSimple\SsoAuthBundle\Sso\Cas\CasV1Validation;
 use BeSimple\SsoAuthBundle\Sso\Cas\CasV2Validation;
 

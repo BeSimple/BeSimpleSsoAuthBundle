@@ -128,6 +128,7 @@ The full list of settings:
             protocol: cas                           # required
             version: 2
             base_url: http://cas.domain.tls/path    # required
+            username: {username}@{base_url}
             validation_request:
                 client: Curl                        # or FileGetContents
                 method: get

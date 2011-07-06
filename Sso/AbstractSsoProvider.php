@@ -19,7 +19,12 @@ abstract class AbstractSsoProvider
 
     public function formatUsername($username)
     {
-        return sprintf('%s@%s', $username, $this->server->getId());
+        $placeholders = array(
+            '{username}' => $username,
+            '{base_url}' => $this->server->getBaseUrl(),
+        );
+
+        return strtr($this->server->getUsernameFormat(), $placeholders);
     }
 
     public function handleLogin()

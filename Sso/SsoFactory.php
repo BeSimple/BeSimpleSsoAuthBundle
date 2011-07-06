@@ -27,6 +27,7 @@ class SsoFactory
             ->setVersion($config['version'])
             ->setValidationMethod($config['validaion_request']['method'])
             ->setValidationClient($this->getValidationClient($config['validaion_request']))
+            ->setUsernameFormat($config['username'])
         ;
 
         return $provider;

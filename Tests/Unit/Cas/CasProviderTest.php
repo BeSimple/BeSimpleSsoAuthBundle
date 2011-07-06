@@ -1,8 +1,7 @@
 <?php
 
-namespace BeSimple\SsoAuthBundle\Tests;
+namespace BeSimple\SsoAuthBundle\Tests\Unit\Cas;
 
-use BeSimple\SsoAuthBundle\Test\CasTestCase;
 use BeSimple\SsoAuthBundle\Sso\Cas\CasProvider;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 use Buzz\Client\FileGetContents;

@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('protocol')->cannotBeEmpty()->end()
                     ->scalarNode('base_url')->cannotBeEmpty()->end()
                     ->scalarNode('version')->defaultValue(1)->end()
+                    ->scalarNode('username')->defaultValue('{username}@{base_url}')->end()
                     ->arrayNode('validation_request')
                         ->children()
                             ->scalarNode('client')->defaultValue('FileGetContents')->end()
