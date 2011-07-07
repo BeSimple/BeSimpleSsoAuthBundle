@@ -2,10 +2,9 @@
 
 namespace BeSimple\SsoAuthBundle\Tests\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
  
-class TestController extends ContainerAware
+class TestController
 {
     const ANON_RESPONSE    = 'hello anon';
     const SECURED_RESPONSE = 'hello secured';
