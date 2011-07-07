@@ -111,6 +111,7 @@ An example in the YAML format:
                 pattern: ^/secured-area/.*$
                 trusted_sso:
                     server: my_server
+                    login_action: BeSimpleSsoAuthBundle:TrustedSso:login
                     # ...
         #...
 

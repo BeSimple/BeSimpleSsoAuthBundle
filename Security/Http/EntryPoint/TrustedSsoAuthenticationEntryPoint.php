@@ -45,11 +45,11 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $controller = $this->config['login_controller'];
-        $provider   = $this->ssoFactory->createProvider($this->config['server'], $this->config['check_path']);
+        $action   = $this->config['login_action'];
+        $provider = $this->ssoFactory->createProvider($this->config['server'], $this->config['check_path']);
 
-        if ($controller) {
-            return $this->httpKernel->forward($controller, array(
+        if ($action) {
+            return $this->httpKernel->forward($action, array(
                 'provider'  => $provider,
                 'request'   => $request,
                 'exception' => $authException,
