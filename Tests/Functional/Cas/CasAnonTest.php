@@ -2,7 +2,7 @@
 
 namespace BeSimple\SsoAuthBundle\Tests\Functional\Cas;
 
-class BaseCasWebTestCase extends CasWebTestCase
+class CasBaseTest extends CasWebTestCase
 {
     public function testAnon()
     {

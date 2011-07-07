@@ -13,7 +13,7 @@ class TrustedSsoFactory extends AbstractSsoFactory
     public function __construct()
     {
         $this->addOption('server');
-        $this->addOption('login_controller', 'BeSimpleSsoAuthBundle:TrustedSso:login');
+        $this->addOption('login_action', 'BeSimpleSsoAuthBundle:TrustedSso:login');
     }
 
     public function getKey()

@@ -25,8 +25,8 @@ class SsoFactory
             ->setBaseUrl($config['base_url'])
             ->setCheckUrl($checkUrl)
             ->setVersion($config['version'])
-            ->setValidationMethod($config['validaion_request']['method'])
-            ->setValidationClient($this->getValidationClient($config['validaion_request']))
+            ->setValidationMethod($config['validation_request']['method'])
+            ->setValidationClient($this->getValidationClient($config['validation_request']))
             ->setUsernameFormat($config['username'])
         ;
 
@@ -35,14 +35,14 @@ class SsoFactory
 
     private function getServerConfig($serverName)
     {
-        if ($this->container->has('be_simple_sso_auth.default_config')) {
+        if ($this->container->hasParameter('be_simple_sso_auth.default_config')) {
             return array_merge_recursive(
-                $this->container->get('be_simple_sso_auth.default_config', array()),
-                $this->container->get('be_simple_sso_auth.%s_config', $serverName)
+                $this->container->getParameter('be_simple_sso_auth.default_config', array()),
+                $this->container->getParameter(sprintf('be_simple_sso_auth.%s_config', $serverName))
             );
         }
 
-        return $this->container->get('be_simple_sso_auth.%s_config', $serverName);
+        return $this->container->getParameter(sprintf('be_simple_sso_auth.%s_config', $serverName));
     }
 
     private function getValidationClient(array $config)
