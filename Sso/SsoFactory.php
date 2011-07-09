@@ -35,13 +35,6 @@ class SsoFactory
 
     private function getServerConfig($serverName)
     {
-        if ($this->container->hasParameter('be_simple_sso_auth.default_config')) {
-            return array_merge_recursive(
-                $this->container->getParameter('be_simple_sso_auth.default_config', array()),
-                $this->container->getParameter(sprintf('be_simple_sso_auth.%s_config', $serverName))
-            );
-        }
-
         return $this->container->getParameter(sprintf('be_simple_sso_auth.%s_config', $serverName));
     }
 
