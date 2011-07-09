@@ -137,8 +137,6 @@ The full list of settings:
                 max_redirects: 5
         # ...
 
-Note that you can define a `default` section to store your default values.
-
 
 Open SSO:
 ---------
