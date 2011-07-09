@@ -2,32 +2,35 @@
 
 namespace BeSimple\SsoAuthBundle\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
- 
-class TestController
+class TestController extends Controller
 {
-    const ANON_RESPONSE    = 'hello anon';
-    const SECURED_RESPONSE = 'hello secured';
-    const USER_RESPONSE    = 'hello user';
-    const ADMIN_RESPONSE   = 'hello admin';
+    const ANON_MESSAGE    = 'hello anon';
+    const SECURED_MESSAGE = 'hello secured';
+    const USER_MESSAGE    = 'hello user';
+    const ADMIN_MESSAGE   = 'hello admin';
 
     public function anonAction()
     {
-        return new Response(self::ANON_RESPONSE);
+        return $this->renderMessage(self::ANON_MESSAGE);
     }
 
     public function securedAction()
     {
-        return new Response(self::SECURED_RESPONSE);
+        return $this->renderMessage(self::SECURED_MESSAGE);
     }
 
     public function userAction()
     {
-        return new Response(self::USER_RESPONSE);
+        return $this->renderMessage(self::USER_MESSAGE);
     }
 
     public function adminAction()
     {
-        return new Response(self::ADMIN_RESPONSE);
+        return $this->renderMessage(self::ADMIN_MESSAGE);
+    }
+
+    private function renderMessage($message)
+    {
+        return $this->render('common/message.html.twig', array('message' => $message));
     }
 }

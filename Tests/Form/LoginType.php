@@ -12,4 +12,9 @@ class LoginType extends AbstractType
         $builder->add('username', 'text');
         $builder->add('password', 'password');
     }
+
+    public function getName()
+    {
+        return 'login';
+    }
 }

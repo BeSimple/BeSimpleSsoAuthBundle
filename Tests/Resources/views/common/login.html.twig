@@ -1,0 +1,8 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+    <form id="login" action="{{ action }}" method="post">
+        {{ form_widget(form) }}
+        <input type="submit" value="login" />
+    </form>
+{% endblock %}

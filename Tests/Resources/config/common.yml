@@ -2,7 +2,7 @@ framework:
     charset:       UTF-8
     secret:        test
     csrf_protection:
-        enabled: true
+        enabled: false
 
     validation:    { enabled: true, enable_annotations: true }
     templating:    { engines: ["twig"] }
@@ -19,8 +19,10 @@ services:
         class: Symfony\Component\HttpKernel\Log\NullLogger
     be_simple_sso_auth.test_controller.test:
         class: BeSimple\SsoAuthBundle\Tests\Controller\TestController
+        arguments: [@service_container]
     be_simple_sso_auth.test_controller.trusted:
         class: BeSimple\SsoAuthBundle\Tests\Controller\TrustedSsoController
+        arguments: [@service_container]
 
 twig:
     debug:            %kernel.debug%
@@ -34,16 +36,11 @@ security:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-    access_control:
-        - { path: /secured/user, roles: ROLE_USER }
-        - { path: /secured/admin, roles: ROLE_ADMIN }
     providers:
         in_memory:
             users:
                 "user": { password: user, roles: ["ROLE_USER"] }
                 "admin": { password: admin, roles: ["ROLE_ADMIN"] }
-
-be_simple_sso_auth:
-    default:
-        username: "{username}"
-        validation_request: ~
+    access_control:
+        - { path: /secured/user, roles: ROLE_USER }
+        - { path: /secured/admin, roles: ROLE_ADMIN }

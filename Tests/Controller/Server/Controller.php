@@ -1,15 +1,15 @@
 <?php
 
-namespace BeSimple\SsoAuthBundle\Tests\Conroller\Server;
+namespace BeSimple\SsoAuthBundle\Tests\Controller\Server;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use BeSimple\SsoAuthBundle\Tests\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Templating\TemplateReference;
 use BeSimple\SsoAuthBundle\Tests\Form\Login;
 use BeSimple\SsoAuthBundle\Tests\Form\LoginType;
 
-abstract class Controller extends ContainerAware
+abstract class Controller extends BaseController
 {
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -25,7 +25,10 @@ abstract class Controller extends ContainerAware
             return new RedirectResponse($this->getLoginRedirectUrl($request, $form->getData()));
         }
 
-        return $this->render('login.html.twig', array('form' => $form));
+        return $this->render('common/login.html.twig', array(
+            'form' => $form->createView(),
+            'action' => $request->getRequestUri())
+        );
     }
 
     /**
@@ -34,23 +37,10 @@ abstract class Controller extends ContainerAware
      */
     public function validationAction($credentials)
     {
-        $view      = $this->isValidCredentials($credentials) ? 'valid' : 'invalid';
-        $directory = $this->getViewDirectory($this->getRequest());
+        $name = $this->isValidCredentials($credentials) ? 'valid' : 'invalid';
+        $view = $this->getValidationView($this->getRequest(), $name);
 
-        return $this->render(sprintf('%s/%s.html.twig', $directory, $view), array('credentials' => $credentials));
-    }
-
-    /**
-     * @param string $view
-     * @param array $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function render($view, array $parameters = array())
-    {
-        $path      = realpath(sprintf(__DIR__.'/../../Resources/view/%s', $view));
-        $reference = new TemplateReference($path, 'twig');
-
-        return $this->container->get('templating')->render($reference, $parameters);
+        return $this->render($view, array('username' => $credentials));
     }
 
     /**
@@ -58,15 +48,7 @@ abstract class Controller extends ContainerAware
      */
     protected function createLoginForm()
     {
-        return $this->container->get('form.factory')->createForm(new LoginType(), new Login());
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
-    protected function getRequest()
-    {
-        return $this->container->get('request');
+        return $this->container->get('form.factory')->create(new LoginType(), new Login());
     }
 
     /**
@@ -89,7 +71,8 @@ abstract class Controller extends ContainerAware
     /**
      * @abstract
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $name
      * @return string
      */
-    abstract protected function getViewDirectory(Request $request);
+    abstract protected function getValidationView(Request $request, $name);
 }
