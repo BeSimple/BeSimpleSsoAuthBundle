@@ -60,11 +60,6 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
             return null;
         }
 
-        $username = $token->getUsername();
-        if (empty($username)) {
-            throw new AuthenticationServiceException('SsoToken must provide an username.');
-        }
-
         $ssoProvider = $token->getSsoProvider();
         $validation  = $this->validateCredentials($ssoProvider, $token->getCredentials());
         $user        = $this->provideUser($ssoProvider, $validation);
