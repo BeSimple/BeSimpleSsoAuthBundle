@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('version')->defaultValue(1)->end()
                     ->scalarNode('username')->defaultValue('{username}@{base_url}')->end()
                     ->arrayNode('validation_request')
-                        ->defaultValue($defaultValidationRequest)
+                        ->addDefaultsIfNotSet($defaultValidationRequest)
                         ->children()
                             ->scalarNode('client')->defaultValue($defaultValidationRequest['client'])->end()
                             ->scalarNode('method')->defaultValue($defaultValidationRequest['method'])->end()
