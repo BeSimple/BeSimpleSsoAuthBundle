@@ -4,6 +4,7 @@ namespace BeSimple\SsoAuthBundle\Sso;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Buzz\Client\ClientInterface;
 
 class SsoFactory
 {
@@ -40,7 +41,7 @@ class SsoFactory
 
     private function getValidationClient(array $config)
     {
-        $class  = sprintf('Buzz\\Client\\%s', $config['client']);
+        $class  = strpos($config['client'], '\\') ? $config['client'] : sprintf('Buzz\\Client\\%s', $config['client']);
         $client = new $class();
 
         $client->setTimeout($config['timeout']);
