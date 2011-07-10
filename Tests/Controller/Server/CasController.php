@@ -20,6 +20,11 @@ class CasController extends Controller
         return sprintf('%s?ticket=%s', $url, $login->getCredentials());
     }
 
+    protected function getCredentials(Request $request)
+    {
+        return $request->query->get('ticket');
+    }
+
     /**
      * @abstract
      * @param \Symfony\Component\HttpFoundation\Request $request

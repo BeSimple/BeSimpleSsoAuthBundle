@@ -13,11 +13,15 @@ services:
 security:
     firewalls:
         cas:
-          pattern: ^/secured.*$
-          trusted_sso:
-              server:       cas
-              check_path:   /secured/check
-              login_action: be_simple_sso_auth.test_controller.trusted:loginAction
+            pattern: ^/secured.*$
+            trusted_sso:
+                server:       cas
+                login_path:   /secured
+                check_path:   /secured/check
+                login_action: be_simple_sso_auth.test_controller.trusted:loginAction
+            logout:
+                path:   /secured/logout
+                target: /secured
 
 be_simple_sso_auth:
     cas:
@@ -25,3 +29,5 @@ be_simple_sso_auth:
         version:  2
         base_url: /server
         username: "{username}"
+        validation_request:
+            client: BeSimple\SsoAuthBundle\Tests\HttpClient

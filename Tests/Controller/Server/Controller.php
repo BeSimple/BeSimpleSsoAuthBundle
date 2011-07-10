@@ -35,10 +35,11 @@ abstract class Controller extends BaseController
      * @param string $credentials
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function validationAction($credentials)
+    public function validationAction()
     {
-        $name = $this->isValidCredentials($credentials) ? 'valid' : 'invalid';
-        $view = $this->getValidationView($this->getRequest(), $name);
+        $credentials = $this->getCredentials($this->getRequest());
+        $name        = $this->isValidCredentials($credentials) ? 'valid' : 'invalid';
+        $view        = $this->getValidationView($this->getRequest(), $name);
 
         return $this->render($view, array('username' => $credentials));
     }
@@ -67,6 +68,13 @@ abstract class Controller extends BaseController
      * @return string
      */
     abstract protected function getLoginRedirectUrl(Request $request, Login $login);
+
+    /**
+     * @abstract
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return string
+     */
+    abstract protected function getCredentials(Request $request);
 
     /**
      * @abstract

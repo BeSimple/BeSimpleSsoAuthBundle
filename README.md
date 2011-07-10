@@ -2,18 +2,8 @@ SSO authentication for Symfony2
 ===============================
 
 
-**Warning:**
-
--   Currently under development, unusable for now.
--   Only unit tests, missing functional.
--   Currently implemented: CAS only.
-
-
-**Summary:**
-
--   Get started: install & enable bundle & dependencies
--   Trusted SSO: force user to authenticate with a trusted server
--   Open SSO: let user authenticate with any SSO server
+-   Only CAS is implemented for now.
+-   Unit & functional tests OK!
 
 
 **SSO systems:**
@@ -29,6 +19,13 @@ SSO authentication for Symfony2
     -   PubCookie: http://www.pubcookie.org/
     -   Lightweight Directory Access Protocol: http://en.wikipedia.org/wiki/LDAP
     -   OAuth: http://oauth.net/
+
+
+**Summary:**
+
+-   Get started: install & enable bundle & dependencies
+-   Trusted SSO: force user to authenticate with a trusted server
+-   Open SSO: let user authenticate with any SSO server
 
 
 Get started:

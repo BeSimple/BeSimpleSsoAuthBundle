@@ -4,11 +4,9 @@ namespace BeSimple\SsoAuthBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Component\HttpKernel\Util\Filesystem;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Crawler;
 use BeSimple\SsoAuthBundle\Tests\AppKernel;
-
-use BeSimple\SsoAuthBundle\Tests\Controller\TrustedSsoController;
+use BeSimple\SsoAuthBundle\Tests\HttpClient;
 
 /**
  * @method assertEquals
@@ -48,14 +46,20 @@ abstract class WebTestCase extends BaseWebTestCase
         static::$tmpPath    = sys_get_temp_dir().'/be_simple_sso_auth_bundle_tests';
         static::$configFile = __DIR__.'/../Resources/config/'.$options['sso_server_name'].'.yml';
 
-        $fs = new Filesystem();
-        $fs->remove(static::$tmpPath);
+        if (file_exists(static::$tmpPath)) {
+            $fs = new Filesystem();
+            $fs->remove(static::$tmpPath);
+        }
 
-        return new AppKernel(
+        $kernel = new AppKernel(
             static::$tmpPath,
             static::$configFile,
             isset($options['environment']) ? $options['environment'] : 'test',
             isset($options['debug']) ? $options['debug'] : true
         );
+
+        HttpClient::setKernel($kernel);
+
+        return $kernel;
     }
 }

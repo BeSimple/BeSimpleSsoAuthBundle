@@ -6,9 +6,9 @@ server_login:
     defaults: { _controller: be_simple_sso_auth.server_controller.cas:loginAction }
 
 server_validation_v1:
-    pattern:  /server/validation/v1
+    pattern:  /server/validation
     defaults: { _controller: be_simple_sso_auth.server_controller.cas:validationAction, version: 1 }
 
 server_validation_v2:
-    pattern:  /server/validation/v2
+    pattern:  /server/serviceValidation
     defaults: { _controller: be_simple_sso_auth.server_controller.cas:validationAction, version: 2 }
