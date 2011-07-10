@@ -9,16 +9,17 @@ SSO authentication for Symfony2
 **SSO systems:**
 
 -   Currently implemented:
-    -   Central Authentication Service: http://www.jasig.org/cas
+    -   CAS: http://www.jasig.org/cas
 -   Planed implementations:
-    -   Codign: http://cosign.sourceforge.net/
+    -   CoSign: http://cosign.sourceforge.net/
+    -   WebAuth: http://webauth.stanford.edu/
     -   OpenID: http://openid.net/
 -   Other systems:
+    -   OAuth: http://oauth.net/
+    -   LDAP: http://en.wikipedia.org/wiki/LDAP
     -   JOSSO: http://www.josso.org/confluence/display/JOSSO1/JOSSO+-+Java+Open+Single+Sign-On+Project+Home
     -   OpenAM: http://www.forgerock.com/openam.html
     -   PubCookie: http://www.pubcookie.org/
-    -   Lightweight Directory Access Protocol: http://en.wikipedia.org/wiki/LDAP
-    -   OAuth: http://oauth.net/
 
 
 **Summary:**
@@ -112,10 +113,11 @@ An example in the YAML format:
                     # ...
         #...
 
-The full list of settings:
+Specific configuration:
 
--   `server`: the SSO server name (this server is configured under the `be_simple_sso_auth` section.
--   `check_url`:
+-   `server`: the SSO server name (this server is configured under the `be_simple_sso_auth` section).
+-   `login_action`: when login required, user is forwarded to this action (wich by default tell him to
+    follow given link to authenticate). Set to `false` to auto-redirect user to SSO login form.
 
 
 ###Configure your server:
@@ -133,6 +135,16 @@ The full list of settings:
                 timeout: 5                          # in seconds
                 max_redirects: 5
         # ...
+
+Username formatting:
+
+If you use many authentication systems, you may get many users with same username.
+To avoid collision, you can format usernames (with the `username` configuration entry)
+with SSO specific variables. Valid placeholders are:
+
+    -   `username`: the username,
+    -   `base_url`: SSO base url,
+    -   more to come...
 
 
 Open SSO:
