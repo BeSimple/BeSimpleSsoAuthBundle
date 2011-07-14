@@ -8,7 +8,6 @@ use BeSimple\SsoAuthBundle\Tests\Form\Login;
 class CasController extends Controller
 {
     /**
-     * @abstract
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $credentials
      * @return string
@@ -20,13 +19,25 @@ class CasController extends Controller
         return sprintf('%s?ticket=%s', $url, $login->getCredentials());
     }
 
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return string
+     */
+    protected function getLogoutRedirectUrl(Request $request)
+    {
+        return urldecode($request->query->get('service'));
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return string
+     */
     protected function getCredentials(Request $request)
     {
         return $request->query->get('ticket');
     }
 
     /**
-     * @abstract
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $view
      * @return string

@@ -2,18 +2,25 @@
 
 namespace BeSimple\SsoAuthBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use BeSimple\SsoAuthBundle\Sso\SsoProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use BeSimple\SsoAuthBundle\Sso\SsoProviderInterface;
 
-class TrustedSsoController extends ContainerAware
+class TrustedSsoController extends Controller
 {
     public function loginAction(SsoProviderInterface $provider, Request $request, AuthenticationException $exception = null)
     {
-        $view       = 'BeSimpleSsoAuthBundle:TrustedSso:login.html.twig';
-        $parameters = array('provider'  => $provider, 'request' => $request, 'exception' => $exception);
+        return $this->render(
+            'BeSimpleSsoAuthBundle:TrustedSso:login.html.twig',
+            array('provider'  => $provider, 'request' => $request, 'exception' => $exception)
+        );
+    }
 
-        return $this->container->get('templating')->renderResponse($view, $parameters);
+    public function logoutAction(SsoProviderInterface $provider, Request $request)
+    {
+        return $this->render(
+            'BeSimpleSsoAuthBundle:TrustedSso:logout.html.twig',
+            array('provider'  => $provider, 'request' => $request)
+        );
     }
 }

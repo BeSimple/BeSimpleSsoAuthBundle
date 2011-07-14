@@ -11,6 +11,8 @@ use BeSimple\SsoAuthBundle\Tests\Form\LoginType;
 
 abstract class Controller extends BaseController
 {
+    const LOGOUT_MESSAGE = 'you are logged out';
+
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -44,6 +46,14 @@ abstract class Controller extends BaseController
         return $this->render($view, array('username' => $credentials));
     }
 
+    public function logoutAction()
+    {
+        return $this->render('common/link.html.twig', array(
+            'message' => self::LOGOUT_MESSAGE,
+            'url'     => $this->getLogoutRedirectUrl($this->getRequest()),
+        ));
+    }
+
     /**
      * @return \Symfony\Component\Form\Form
      */
@@ -68,6 +78,13 @@ abstract class Controller extends BaseController
      * @return string
      */
     abstract protected function getLoginRedirectUrl(Request $request, Login $login);
+
+    /**
+     * @abstract
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return string
+     */
+    abstract protected function getLogoutRedirectUrl(Request $request);
 
     /**
      * @abstract

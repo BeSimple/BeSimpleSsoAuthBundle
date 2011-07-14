@@ -9,6 +9,13 @@ use Symfony\Component\DependencyInjection\Reference;
 
 abstract class AbstractSsoFactory extends AbstractFactory
 {
+    public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPointId)
+    {
+        $this->createLogoutSuccessHandler($container, $config);
+
+        return parent::create($container, $id, $config, $userProviderId, $defaultEntryPointId);
+    }
+
     public function getPosition()
     {
         return 'form';
@@ -21,9 +28,20 @@ abstract class AbstractSsoFactory extends AbstractFactory
         $container
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.provider.sso'))
             ->replaceArgument(0, new Reference($userProviderId))
-//            ->replaceArgument(2, $id) // dont need provider id
         ;
 
         return $provider;
+    }
+
+    protected function createLogoutSuccessHandler(ContainerBuilder $container, $config)
+    {
+        $templateHandler = 'security.logout.sso.success_handler';
+        $realHandler     = 'security.logout.success_handler';
+
+        // dont know if this is the right way, but it works
+        $container
+            ->setDefinition($realHandler, new DefinitionDecorator($templateHandler))
+            ->addArgument($config)
+        ;
     }
 }

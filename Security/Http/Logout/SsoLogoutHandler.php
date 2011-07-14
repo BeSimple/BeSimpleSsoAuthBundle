@@ -6,6 +6,7 @@ use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 
 class SsoLogoutHandler implements LogoutHandlerInterface
 {

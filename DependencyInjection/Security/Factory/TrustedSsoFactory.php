@@ -14,6 +14,7 @@ class TrustedSsoFactory extends AbstractSsoFactory
     {
         $this->addOption('server');
         $this->addOption('login_action', 'BeSimpleSsoAuthBundle:TrustedSso:login');
+        $this->addOption('logout_action', 'BeSimpleSsoAuthBundle:TrustedSso:logout');
     }
 
     public function getKey()
@@ -41,7 +42,8 @@ class TrustedSsoFactory extends AbstractSsoFactory
     protected function createListener($container, $id, $config, $userProvider)
     {
         $listenerId = $this->getListenerId();
-        $listener = new DefinitionDecorator($listenerId);
+        $listener   = new DefinitionDecorator($listenerId);
+
         $listener->replaceArgument(4, $id);
         $listener->replaceArgument(6, array_intersect_key($config, $this->options));
 

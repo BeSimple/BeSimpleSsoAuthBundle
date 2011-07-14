@@ -15,10 +15,11 @@ security:
         cas:
             pattern: ^/secured.*$
             trusted_sso:
-                server:       cas
-                login_path:   /secured
-                check_path:   /secured/check
-                login_action: be_simple_sso_auth.test_controller.trusted:loginAction
+                server:        cas
+                login_path:    /secured
+                check_path:    /secured/check
+                login_action:  be_simple_sso_auth.test_controller.trusted:loginAction
+                logout_action: be_simple_sso_auth.test_controller.trusted:logoutAction
             logout:
                 path:   /secured/logout
                 target: /secured

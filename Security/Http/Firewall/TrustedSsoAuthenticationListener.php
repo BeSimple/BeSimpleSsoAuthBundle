@@ -34,8 +34,6 @@ class TrustedSsoAuthenticationListener extends AbstractAuthenticationListener
             return null;
         }
 
-        //$request->getSession()->set(SecurityContextInterface::LAST_USERNAME, $username);
-
         return $this->authenticationManager->authenticate($ssoProvider->createToken($request));
     }
 }

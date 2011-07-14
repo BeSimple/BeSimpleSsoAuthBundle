@@ -12,3 +12,7 @@ server_validation_v1:
 server_validation_v2:
     pattern:  /server/serviceValidation
     defaults: { _controller: be_simple_sso_auth.server_controller.cas:validationAction, version: 2 }
+
+server_logout:
+    pattern:  /server/logout
+    defaults: { _controller: be_simple_sso_auth.server_controller.cas:logoutAction }
