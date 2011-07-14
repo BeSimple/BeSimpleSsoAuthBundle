@@ -10,7 +10,7 @@ abstract class AbstractSsoServer
     protected $validationClient;
     protected $validationMethod;
     protected $baseUrl;
-    protected $checkUrl;
+    protected $returnUrl;
     protected $version;
     protected $usernameFormat;
 
@@ -18,14 +18,17 @@ abstract class AbstractSsoServer
     {
         $this->validationClient = null;
         $this->validationMethod = Request::METHOD_GET;
-        $this->baseUrl  = null;
-        $this->checkUrl = null;
-        $this->version  = 1;
+        $this->baseUrl          = null;
+        $this->returnUrl        = null;
+        $this->version          = 1;
     }
 
     public function getId()
     {
-        return $this->baseUrl;
+        $parts = parse_url($this->baseUrl);
+
+        return (isset($parts['host']) ? $parts['host'] : 'localhost')
+            .(isset($parts['path']) && $parts['path'] !== '/' ? $parts['path'] : '');
     }
 
     public function getValidationClient()
@@ -64,14 +67,14 @@ abstract class AbstractSsoServer
         return $this;
     }
 
-    public function getCheckUrl()
+    public function getReturnUrl()
     {
-        return $this->checkUrl;
+        return $this->returnUrl;
     }
 
-    public function setCheckUrl($checkUrl)
+    public function setReturnUrl($returnUrl)
     {
-        $this->checkUrl = $checkUrl;
+        $this->returnUrl = $returnUrl;
 
         return $this;
     }

@@ -43,13 +43,4 @@ class CasProviderTest extends CasTestCase
         $this->assertEquals(array(), $token->getRoles());
         $this->assertEquals(array(), $token->getAttributes());
     }
-
-    /**
-     * @dataProvider provideProviders
-     */
-    public function testFormatUsername(CasProvider $provider)
-    {
-        $expected = sprintf('%s@%s', $this->username, $this->baseUrl);
-        $this->assertEquals($expected, $provider->formatUsername($this->username));
-    }
 }

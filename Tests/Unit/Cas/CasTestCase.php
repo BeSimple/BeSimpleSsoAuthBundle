@@ -20,27 +20,27 @@ abstract class CasTestCase extends TestCase
     public function provideProviders()
     {
         return array(
-            array($this->createProvider(1, $this->baseUrl, $this->checkUrl, $this->usernameFormat)),
-            array($this->createProvider(2, $this->baseUrl, $this->checkUrl, $this->usernameFormat)),
+            array($this->createProvider(1, $this->baseUrl, $this->returnUrl, $this->usernameFormat)),
+            array($this->createProvider(2, $this->baseUrl, $this->returnUrl, $this->usernameFormat)),
         );
     }
 
     public function provideServers()
     {
         return array(
-            array($this->createServer(1, $this->baseUrl, $this->checkUrl, $this->usernameFormat)),
-            array($this->createServer(2, $this->baseUrl, $this->checkUrl, $this->usernameFormat)),
+            array($this->createServer(1, $this->baseUrl, $this->returnUrl, $this->usernameFormat)),
+            array($this->createServer(2, $this->baseUrl, $this->returnUrl, $this->usernameFormat)),
         );
     }
 
-    protected function createProvider($version, $baseUrl, $checkUrl, $usernameFormat)
+    protected function createProvider($version, $baseUrl, $returnUrl, $usernameFormat)
     {
-        return parent::createProvider(new CasProvider(), $version, $baseUrl, $checkUrl, $usernameFormat);
+        return parent::createProvider(new CasProvider(), $version, $baseUrl, $returnUrl, $usernameFormat);
     }
 
-    protected function createServer($version, $baseUrl, $checkUrl, $usernameFormat)
+    protected function createServer($version, $baseUrl, $returnUrl, $usernameFormat)
     {
-        return parent::createServer(new CasServer(), $version, $baseUrl, $checkUrl, $usernameFormat);
+        return parent::createServer(new CasServer(), $version, $baseUrl, $returnUrl, $usernameFormat);
     }
 
     protected function createValidation($version, $content)

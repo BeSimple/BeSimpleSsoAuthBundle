@@ -11,25 +11,25 @@ use Buzz\Client\FileGetContents;
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     protected $baseUrl        = 'http://sso.server';
-    protected $checkUrl       = 'http://my.project/check';
+    protected $returnUrl      = 'http://my.project/check';
     protected $errorMessage   = 'error message';
     protected $username       = 'username';
     protected $credentials    = 'credentials';
     protected $attributes     = array('name1' => 'value1', 'name2' => 'value2');
-    protected $usernameFormat = '{username}@{base_url}';
+    protected $usernameFormat = '{username}@{server_id}';
 
     abstract public function provideServers();
 
-    protected function createProvider(SsoProviderInterface $provider, $version, $baseUrl, $checkUrl, $usernameFormat)
+    protected function createProvider(SsoProviderInterface $provider, $version, $baseUrl, $returnUrl, $usernameFormat)
     {
-        $this->configureServer($provider->getServer(), $version, $baseUrl, $checkUrl, $usernameFormat);
+        $this->configureServer($provider->getServer(), $version, $baseUrl, $returnUrl, $usernameFormat);
 
         return $provider;
     }
 
-    protected function createServer(SsoServerInterface $server, $version, $baseUrl, $checkUrl, $usernameFormat)
+    protected function createServer(SsoServerInterface $server, $version, $baseUrl, $returnUrl, $usernameFormat)
     {
-        $this->configureServer($server, $version, $baseUrl, $checkUrl, $usernameFormat);
+        $this->configureServer($server, $version, $baseUrl, $returnUrl, $usernameFormat);
 
         return $server;
     }
@@ -42,11 +42,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $validation->setResponse($response);
     }
 
-    private function configureServer(SsoServerInterface $server, $version, $baseUrl, $checkUrl, $usernameFormat)
+    private function configureServer(SsoServerInterface $server, $version, $baseUrl, $returnUrl, $usernameFormat)
     {
         $server
             ->setBaseUrl($baseUrl)
-            ->setCheckUrl($checkUrl)
+            ->setReturnUrl($returnUrl)
             ->setValidationClient(new FileGetContents())
             ->setValidationMethod('get')
             ->setVersion($version)

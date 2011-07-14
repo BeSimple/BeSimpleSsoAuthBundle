@@ -20,8 +20,8 @@ abstract class AbstractSsoProvider
     public function formatUsername($username)
     {
         $placeholders = array(
-            '{username}' => $username,
-            '{base_url}' => $this->server->getBaseUrl(),
+            '{username}'  => $username,
+            '{server_id}' => $this->server->getId(),
         );
 
         return strtr($this->server->getUsernameFormat(), $placeholders);
@@ -30,6 +30,11 @@ abstract class AbstractSsoProvider
     public function handleLogin()
     {
         return new RedirectResponse($this->server->getLoginUrl());
+    }
+
+    public function handleLogout()
+    {
+        return new RedirectResponse($this->server->getLogoutUrl());
     }
 
     public function validateCredentials($credentials)

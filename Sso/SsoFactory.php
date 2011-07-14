@@ -9,22 +9,22 @@ use Buzz\Client\ClientInterface;
 class SsoFactory
 {
     private $container;
-
+    
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    public function createProvider($serverName, $checkPath)
+    public function createProvider($serverName, $returnPath)
     {
-        $config   = $this->getServerConfig($serverName);
-        $provider = $this->container->get(sprintf('be_simple_sso_auth.sso_provider.%s', $config['protocol']));
-        $checkUrl = $this->container->get('request')->getUriForPath($checkPath);
+        $config    = $this->getServerConfig($serverName);
+        $provider  = $this->container->get(sprintf('be_simple_sso_auth.sso_provider.%s', $config['protocol']));
+        $returnUrl = $this->container->get('request')->getUriForPath($returnPath);
 
         $provider
             ->getServer()
             ->setBaseUrl($config['base_url'])
-            ->setCheckUrl($checkUrl)
+            ->setReturnUrl($returnUrl)
             ->setVersion($config['version'])
             ->setValidationMethod($config['validation_request']['method'])
             ->setValidationClient($this->getValidationClient($config['validation_request']))
