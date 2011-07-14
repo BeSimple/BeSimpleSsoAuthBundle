@@ -56,6 +56,6 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
             ));
         }
 
-        return new RedirectResponse($provider->getServer()->getLoginUri());
+        return new RedirectResponse($provider->getServer()->getLoginUrl());
     }
 }

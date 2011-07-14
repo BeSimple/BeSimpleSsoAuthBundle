@@ -24,13 +24,6 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $defaultValidationRequest = array(
-            'client'        => 'FileGetContents',
-            'method'        => 'get',
-            'timeout'       => 5,
-            'max_redirects' => 5
-        );
-
         $treeBuilder = new TreeBuilder();
         
         $treeBuilder
@@ -42,14 +35,14 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('protocol')->cannotBeEmpty()->end()
                     ->scalarNode('base_url')->cannotBeEmpty()->end()
                     ->scalarNode('version')->defaultValue(1)->end()
-                    ->scalarNode('username')->defaultValue('{username}@{base_url}')->end()
+                    ->scalarNode('username')->defaultValue('{username}@{server_id}')->end()
                     ->arrayNode('validation_request')
-                        ->addDefaultsIfNotSet($defaultValidationRequest)
+                        ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('client')->defaultValue($defaultValidationRequest['client'])->end()
-                            ->scalarNode('method')->defaultValue($defaultValidationRequest['method'])->end()
-                            ->scalarNode('timeout')->defaultValue($defaultValidationRequest['timeout'])->end()
-                            ->scalarNode('max_redirects')->defaultValue($defaultValidationRequest['max_redirects'])->end()
+                            ->scalarNode('client')->defaultValue('FileGetContents')->end()
+                            ->scalarNode('method')->defaultValue('get')->end()
+                            ->scalarNode('timeout')->defaultValue(5)->end()
+                            ->scalarNode('max_redirects')->defaultValue(5)->end()
                         ->end()
                     ->end()
                 ->end()

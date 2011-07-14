@@ -110,6 +110,7 @@ An example in the YAML format:
                 trusted_sso:
                     server: my_server
                     login_action: BeSimpleSsoAuthBundle:TrustedSso:login
+                    logout_action: BeSimpleSsoAuthBundle:TrustedSso:logout
                     # ...
         #...
 
@@ -118,6 +119,7 @@ Specific configuration:
 -   `server`: the SSO server name (this server is configured under the `be_simple_sso_auth` section).
 -   `login_action`: when login required, user is forwarded to this action (wich by default tell him to
     follow given link to authenticate). Set to `false` to auto-redirect user to SSO login form.
+-   `logout_action`: same as `login_action`, but for logout
 
 
 ###Configure your server:
@@ -128,7 +130,7 @@ Specific configuration:
             protocol: cas                           # required
             version: 2
             base_url: http://cas.domain.tls/path    # required
-            username: {username}@{base_url}
+            username: {username}@{server_id}
             validation_request:
                 client: Curl                        # or FileGetContents
                 method: get
@@ -142,9 +144,8 @@ If you use many authentication systems, you may get many users with same usernam
 To avoid collision, you can format usernames (with the `username` configuration entry)
 with SSO specific variables. Valid placeholders are:
 
-    -   `username`: the username,
-    -   `base_url`: SSO base url,
-    -   more to come...
+-   `username`: the username,
+-   `server_id`: SSO server ID,
 
 
 Open SSO:
