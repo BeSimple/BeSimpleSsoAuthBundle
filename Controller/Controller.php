@@ -7,11 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Controller extends ContainerAware
 {
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
     protected function render($view, array $parameters)
     {
         return $this
