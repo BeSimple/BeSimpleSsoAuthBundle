@@ -59,7 +59,7 @@ Add bundle to your kernel class:
     // app/AppKernel.php
     $bundles = array(
         // ...
-        new BeSimple\DeploymentBundle\BeSimpleDeploymentBundle(),
+        new BeSimple\SsoAuthBundle\BeSimpleSsoAuthBundle(),
         // ...
     );
 
