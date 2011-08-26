@@ -21,7 +21,7 @@ class CasServer extends AbstractSsoServer implements SsoServerInterface
 
     public function getValidation($credentials)
     {
-        $actions    = array(1 => 'validation', 2 => 'serviceValidation');
+        $actions    = array(1 => 'validate', 2 => 'serviceValidate');
         $validation = sprintf('%s\\CasV%sValidation', __NAMESPACE__, $this->version);
         $request    = new Request($this->validationMethod);
         $response   = new Response();
