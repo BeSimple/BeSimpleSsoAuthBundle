@@ -2,6 +2,9 @@ SSO authentication for Symfony2
 ===============================
 
 
+*Tests fail since this commit : 9e038c005cdcb349eb1de2c9e44e53ccc4f7db43 ... cant see why, maybe a session issue?*
+
+
 -   Only CAS is implemented for now.
 -   Unit & functional tests OK!
 
