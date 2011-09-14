@@ -75,3 +75,11 @@ Run the tests
 From your project root dicrectory:
 
     phpunit -c app vendor/bundles/BeSimple/SsoAuthBundle
+
+
+Navigation
+----------
+
+
+-   Next: [Configure trusted SSO](trusted.md)
+-   [Index](index.md)

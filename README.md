@@ -13,5 +13,5 @@ SSO authentication for Symfony2
 
 **Resources:**
 
--   [Documentation](Resources/doc/index.md)
--   [License](Resources/meta/LICENSE)
+-   Documentation in Resources/doc
+-   License in Resources/meta/LICENSE
