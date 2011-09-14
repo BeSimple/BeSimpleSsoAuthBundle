@@ -11,14 +11,14 @@ use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 class SsoLogoutHandler implements LogoutHandlerInterface
 {
     /**
-     * @param Request $request
-     * @param Response $response
+     * @param Request        $request
+     * @param Response       $response
      * @param TokenInterface $token
      */
     public function logout(Request $request, Response $response, TokenInterface $token)
     {
         if ($token instanceof SsoToken) {
-            $token->getSsoProvider()->processLogout();
+            $token->getProvider()->processLogout($token);
         }
     }
 }

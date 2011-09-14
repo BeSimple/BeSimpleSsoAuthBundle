@@ -4,7 +4,7 @@ namespace BeSimple\SsoAuthBundle\Sso;
 
 use Buzz\Message\Response;
 
-abstract class AbstractSsoValidation implements SsoValidationInterface
+abstract class AbstractValidation implements ValidationInterface
 {
     const STATUS_NONE    = 0;
     const STATUS_VALID   = 1;

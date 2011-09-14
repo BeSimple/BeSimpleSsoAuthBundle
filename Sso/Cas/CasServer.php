@@ -2,12 +2,12 @@
 
 namespace BeSimple\SsoAuthBundle\Sso\Cas;
 
-use BeSimple\SsoAuthBundle\Sso\AbstractSsoServer;
-use BeSimple\SsoAuthBundle\Sso\SsoServerInterface;
+use BeSimple\SsoAuthBundle\Sso\AbstractServer;
+use BeSimple\SsoAuthBundle\Sso\ServerInterface;
 use Buzz\Message\Request;
 use Buzz\Message\Response;
 
-class CasServer extends AbstractSsoServer implements SsoServerInterface
+class CasServer extends AbstractServer implements ServerInterface
 {
     public function getLoginUrl()
     {

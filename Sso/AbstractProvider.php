@@ -8,15 +8,26 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Buzz\Message\Response;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 
-abstract class AbstractSsoProvider
+abstract class AbstractProvider
 {
+    /**
+     * @var ServerInterface
+     */
     protected $server;
 
+    /**
+     * @return ServerInterface
+     */
     public function getServer()
     {
         return $this->server;
     }
 
+    /**
+     * @param string $username
+     *
+     * @return string
+     */
     public function formatUsername($username)
     {
         $placeholders = array(
@@ -27,22 +38,35 @@ abstract class AbstractSsoProvider
         return strtr($this->server->getUsernameFormat(), $placeholders);
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function handleLogin()
     {
         return new RedirectResponse($this->server->getLoginUrl());
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function handleLogout()
     {
         return new RedirectResponse($this->server->getLogoutUrl());
     }
 
+    /**
+     * @param $credentials
+     * @return ValidationInterface
+     */
     public function validateCredentials($credentials)
     {
         return $this->server->getValidation($credentials);
     }
 
-    public function processLogout()
+    /**
+     * @param SsoToken $token
+     */
+    public function processLogout(SsoToken $token)
     {
         return;
     }

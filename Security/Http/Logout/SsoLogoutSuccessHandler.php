@@ -54,6 +54,6 @@ class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
             ));
         }
 
-        return new RedirectResponse($provider->getServer()->getLogoutUrl());
+        return $provider->handleLogout();
     }
 }

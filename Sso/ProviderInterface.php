@@ -2,13 +2,14 @@
 
 namespace BeSimple\SsoAuthBundle\Sso;
 
+use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 use Symfony\Component\HttpFoundation\Request;
 
-interface SsoProviderInterface
+interface ProviderInterface
 {
     public function handleLogin();
     public function handleLogout();
-    public function processLogout();
+    public function processLogout(SsoToken $token);
     public function formatUsername($username);
     public function isValidationRequest(Request $request);
     public function createToken(Request $request);

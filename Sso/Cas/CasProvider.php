@@ -2,14 +2,14 @@
 
 namespace BeSimple\SsoAuthBundle\Sso\Cas;
 
-use BeSimple\SsoAuthBundle\Sso\AbstractSsoProvider;
-use BeSimple\SsoAuthBundle\Sso\SsoProviderInterface;
+use BeSimple\SsoAuthBundle\Sso\AbstractProvider;
+use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Buzz\Browser;
 
-class CasProvider extends AbstractSsoProvider implements SsoProviderInterface
+class CasProvider extends AbstractProvider implements ProviderInterface
 {
     const CREDENTIALS_QUERY_KEY = 'ticket';
 

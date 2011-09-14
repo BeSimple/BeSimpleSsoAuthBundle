@@ -2,10 +2,11 @@
 
 namespace BeSimple\SsoAuthBundle\Sso;
 
-interface SsoServerInterface
+interface ServerInterface
 {
     public function getId();
     public function getLoginUrl();
     public function getLogoutUrl();
+    public function getUsernameFormat();
     public function getValidation($credentials);
 }

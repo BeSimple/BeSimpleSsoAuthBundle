@@ -5,7 +5,7 @@ namespace BeSimple\SsoAuthBundle\Sso;
 use Buzz\Client\ClientInterface;
 use Buzz\Message\Request;
 
-abstract class AbstractSsoServer
+abstract class AbstractServer
 {
     protected $validationClient;
     protected $validationMethod;

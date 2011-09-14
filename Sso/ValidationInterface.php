@@ -2,7 +2,7 @@
 
 namespace BeSimple\SsoAuthBundle\Sso;
 
-interface SsoValidationInterface
+interface ValidationInterface
 {
     public function isSuccess();
     public function getUsername();

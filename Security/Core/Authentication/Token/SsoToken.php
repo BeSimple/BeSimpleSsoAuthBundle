@@ -2,34 +2,34 @@
 
 namespace BeSimple\SsoAuthBundle\Security\Core\Authentication\Token;
 
-use BeSimple\SsoAuthBundle\Sso\SsoProviderInterface;
+use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 class SsoToken extends AbstractToken
 {
-    private $ssoProvider;
+    private $provider;
     private $credentials;
 
     /**
      * Constructor.
      *
-     * @param string $user        The username (like a nickname, email address, etc.)
-     * @param string $credentials This usually is the password of the user
-     * @param string $providerKey The provider key
-     * @param array  $roles       An array of roles
+     * @param ProviderInterface $provider    The SSO provider
+     * @param string            $credentials This usually is the password of the user
+     * @param string            $user        The username (like a nickname, email address, etc.)
+     * @param array             $roles       An array of roles
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(SsoProviderInterface $ssoProvider, $credentials, $user = null, array $roles = array())
+    public function __construct(ProviderInterface $provider, $credentials, $user = null, array $roles = array())
     {
         parent::__construct($roles);
 
-        $this->ssoProvider = $ssoProvider;
+        $this->provider    = $provider;
         $this->credentials = $credentials;
 
         if (!is_null($user)) {
             $this->setUser($user);
-            
+
             parent::setAuthenticated(true);
         }
     }
@@ -51,9 +51,9 @@ class SsoToken extends AbstractToken
         return $this->credentials;
     }
 
-    public function getSsoProvider()
+    public function getProvider()
     {
-        return $this->ssoProvider;
+        return $this->provider;
     }
 
     /**
@@ -68,12 +68,12 @@ class SsoToken extends AbstractToken
 
     public function serialize()
     {
-        return serialize(array($this->credentials, $this->ssoProvider, parent::serialize()));
+        return serialize(array($this->credentials, $this->provider, parent::serialize()));
     }
 
     public function unserialize($str)
     {
-        list($this->credentials, $this->ssoProvider, $parentStr) = unserialize($str);
+        list($this->credentials, $this->provider, $parentStr) = unserialize($str);
         parent::unserialize($parentStr);
     }
 }

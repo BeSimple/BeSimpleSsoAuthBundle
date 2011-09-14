@@ -6,10 +6,10 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Buzz\Client\ClientInterface;
 
-class SsoFactory
+class Factory
 {
     private $container;
-    
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
