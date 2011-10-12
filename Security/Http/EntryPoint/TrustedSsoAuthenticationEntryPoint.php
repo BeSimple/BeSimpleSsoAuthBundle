@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\HttpKernel;
-use BeSimple\SsoAuthBundle\Sso\SsoFactory;
+use BeSimple\SsoAuthBundle\Sso\Factory;
 
 class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
@@ -31,7 +31,7 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
      * @param SsoProviderFactory $ssoFactory
      * @param array $ssoConfig
      */
-    public function __construct(HttpKernel $httpKernel, SsoFactory $ssoFactory, array $config)
+    public function __construct(HttpKernel $httpKernel, Factory $ssoFactory, array $config)
     {
         $this->httpKernel = $httpKernel;
         $this->ssoFactory = $ssoFactory;

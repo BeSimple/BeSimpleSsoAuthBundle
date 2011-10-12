@@ -13,13 +13,13 @@ use Symfony\Component\Security\Http\Firewall\AbstractAuthenticationListener;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Provider\SsoAuthenticationProvider;
-use BeSimple\SsoAuthBundle\Sso\SsoFactory;
+use BeSimple\SsoAuthBundle\Sso\Factory;
 
 class TrustedSsoAuthenticationListener extends AbstractAuthenticationListener
 {
     private $ssoFactory;
 
-    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, SessionAuthenticationStrategyInterface $sessionStrategy, HttpUtils $httpUtils, $providerKey, SsoFactory $ssoFactory, array $options = array(), AuthenticationSuccessHandlerInterface $successHandler = null, AuthenticationFailureHandlerInterface $failureHandler = null, LoggerInterface $logger = null, EventDispatcherInterface $dispatcher = null)
+    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, SessionAuthenticationStrategyInterface $sessionStrategy, HttpUtils $httpUtils, $providerKey, Factory $ssoFactory, array $options = array(), AuthenticationSuccessHandlerInterface $successHandler = null, AuthenticationFailureHandlerInterface $failureHandler = null, LoggerInterface $logger = null, EventDispatcherInterface $dispatcher = null)
     {
         parent::__construct($securityContext, $authenticationManager, $sessionStrategy, $httpUtils, $providerKey, $options, $successHandler, $failureHandler, $logger, $dispatcher);
 
