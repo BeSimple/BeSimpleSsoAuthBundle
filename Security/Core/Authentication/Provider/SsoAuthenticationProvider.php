@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use BeSimple\SsoAuthBundle\Sso\SsoProviderInterface;
+use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
-use BeSimple\SsoAuthBundle\Sso\SsoValidationInterface;
+use BeSimple\SsoAuthBundle\Sso\ValidationInterface;
 
 class SsoAuthenticationProvider implements AuthenticationProviderInterface
 {
@@ -60,7 +60,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
             return null;
         }
 
-        $ssoProvider = $token->getSsoProvider();
+        $ssoProvider = $token->getProvider();
         $validation  = $this->validateCredentials($ssoProvider, $token->getCredentials());
         $user        = $this->provideUser($ssoProvider, $validation);
 
@@ -87,7 +87,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
      * @param SsoToken $token
      * @return UserInterface
      */
-    protected function provideUser(SsoProviderInterface $ssoProvider, SsoValidationInterface $validation)
+    protected function provideUser(ProviderInterface $ssoProvider, ValidationInterface $validation)
     {
         $username = $ssoProvider->formatUsername($validation->getUsername());
 
@@ -155,11 +155,11 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
 
     /**
      * @throws BadCredentialsException
-     * @param SsoProviderInterface $ssoProvider
+     * @param ProviderInterface $ssoProvider
      * @param string $credentials
      * @return SsoValidationInterface
      */
-    protected function validateCredentials(SsoProviderInterface $ssoProvider, $credentials)
+    protected function validateCredentials(ProviderInterface $ssoProvider, $credentials)
     {
         $validation = $ssoProvider->validateCredentials($credentials);
 

@@ -2,11 +2,11 @@
 
 namespace BeSimple\SsoAuthBundle\Sso\Cas;
 
-use BeSimple\SsoAuthBundle\Sso\AbstractSsoValidation;
-use BeSimple\SsoAuthBundle\Sso\SsoValidationInterface;
+use BeSimple\SsoAuthBundle\Sso\AbstractValidation;
+use BeSimple\SsoAuthBundle\Sso\ValidationInterface;
 use Buzz\Message\Response;
  
-class CasV1Validation extends AbstractSsoValidation implements SsoValidationInterface
+class CasV1Validation extends AbstractValidation implements ValidationInterface
 {
     protected function validateResponse(Response $response)
     {

@@ -2,9 +2,9 @@
 
 namespace BeSimple\SsoAuthBundle\Tests\Unit;
 
-use BeSimple\SsoAuthBundle\Sso\SsoProviderInterface;
-use BeSimple\SsoAuthBundle\Sso\SsoServerInterface;
-use BeSimple\SsoAuthBundle\Sso\SsoValidationInterface;
+use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
+use BeSimple\SsoAuthBundle\Sso\ServerInterface;
+use BeSimple\SsoAuthBundle\Sso\ValidationInterface;
 use Buzz\Message\Response;
 use Buzz\Client\FileGetContents;
 
@@ -20,21 +20,21 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
     abstract public function provideServers();
 
-    protected function createProvider(SsoProviderInterface $provider, $version, $baseUrl, $returnUrl, $usernameFormat)
+    protected function createProvider(ProviderInterface $provider, $version, $baseUrl, $returnUrl, $usernameFormat)
     {
         $this->configureServer($provider->getServer(), $version, $baseUrl, $returnUrl, $usernameFormat);
 
         return $provider;
     }
 
-    protected function createServer(SsoServerInterface $server, $version, $baseUrl, $returnUrl, $usernameFormat)
+    protected function createServer(ServerInterface $server, $version, $baseUrl, $returnUrl, $usernameFormat)
     {
         $this->configureServer($server, $version, $baseUrl, $returnUrl, $usernameFormat);
 
         return $server;
     }
 
-    protected function createValidation(SsoValidationInterface $validation, $content)
+    protected function createValidation(ValidationInterface $validation, $content)
     {
         $response = new Response();
         $response->setContent($content);
@@ -42,7 +42,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $validation->setResponse($response);
     }
 
-    private function configureServer(SsoServerInterface $server, $version, $baseUrl, $returnUrl, $usernameFormat)
+    private function configureServer(ServerInterface $server, $version, $baseUrl, $returnUrl, $usernameFormat)
     {
         $server
             ->setBaseUrl($baseUrl)

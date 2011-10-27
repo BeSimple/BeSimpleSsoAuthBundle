@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="be_simple_sso_auth.sso_factory.class">BeSimple\SsoAuthBundle\Sso\SsoFactory</parameter>
+        <parameter key="be_simple_sso_auth.sso_factory.class">BeSimple\SsoAuthBundle\Sso\Factory</parameter>
         <parameter key="be_simple_sso_auth.sso_provider.cas.class">BeSimple\SsoAuthBundle\Sso\Cas\CasProvider</parameter>
         <parameter key="be_simple_sso_auth.sso_server.cas.class">BeSimple\SsoAuthBundle\Sso\Cas\CasServer</parameter>
     </parameters>
