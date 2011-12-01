@@ -157,7 +157,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
      * @throws BadCredentialsException
      * @param ProviderInterface $ssoProvider
      * @param string $credentials
-     * @return SsoValidationInterface
+     * @return ValidationInterface
      */
     protected function validateCredentials(ProviderInterface $ssoProvider, $credentials)
     {
