@@ -6,7 +6,7 @@ use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\HttpKernel;
-use BeSimple\SsoAuthBundle\Sso\SsoFactory;
+use BeSimple\SsoAuthBundle\Sso\Factory;
 
 class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
 {
@@ -30,7 +30,7 @@ class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
      * @param SsoProviderFactory $ssoFactory
      * @param array $ssoConfig
      */
-    public function __construct(HttpKernel $httpKernel, SsoFactory $ssoFactory, array $config)
+    public function __construct(HttpKernel $httpKernel, Factory $ssoFactory, array $config)
     {
         $this->httpKernel = $httpKernel;
         $this->ssoFactory = $ssoFactory;

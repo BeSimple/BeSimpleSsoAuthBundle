@@ -37,7 +37,7 @@ class CasProviderTest extends CasTestCase
         $this->assertTrue($token instanceof SsoToken);
         $this->assertFalse($token->isAuthenticated());
         $this->assertEquals($this->credentials, $token->getCredentials());
-        $this->assertEquals($provider, $token->getSsoProvider());
+        $this->assertEquals($provider, $token->getProvider());
         $this->assertEquals(null, $token->getUsername());
         $this->assertEquals(null, $token->getUser());
         $this->assertEquals(array(), $token->getRoles());

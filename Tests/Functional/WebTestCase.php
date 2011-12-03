@@ -23,9 +23,8 @@ abstract class WebTestCase extends BaseWebTestCase
     public function provideClients()
     {
         $clients = array();
-        $names   = array('cas');
 
-        foreach ($names as $name) {
+        foreach (array('cas') as $name) {
             $clients[] = array(static::createClient(array('sso_server_name' => $name)));
         }
 
@@ -61,5 +60,19 @@ abstract class WebTestCase extends BaseWebTestCase
         HttpClient::setKernel($kernel);
 
         return $kernel;
+    }
+
+    /**
+     * Shuts the kernel down if it was used in the test
+     * and remove temp files.
+     */
+    protected function tearDown()
+    {
+        if (null !== static::$kernel) {
+            static::$kernel->shutdown();
+
+            $fs = new Filesystem();
+            $fs->remove(static::$tmpPath);
+        }
     }
 }

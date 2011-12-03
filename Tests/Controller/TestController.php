@@ -4,10 +4,12 @@ namespace BeSimple\SsoAuthBundle\Tests\Controller;
 
 class TestController extends Controller
 {
-    const ANON_MESSAGE    = 'hello anon';
-    const SECURED_MESSAGE = 'hello secured';
-    const USER_MESSAGE    = 'hello user';
-    const ADMIN_MESSAGE   = 'hello admin';
+    const ANON_MESSAGE      = 'hello anon';
+    const SECURED_MESSAGE   = 'hello secured';
+    const USER_MESSAGE      = 'hello user';
+    const ADMIN_MESSAGE     = 'hello admin';
+    const FORBIDDEN_MESSAGE = 'access denied';
+    const LOGIN_MESSAGE     = 'login required';
 
     public function anonAction()
     {
@@ -27,6 +29,16 @@ class TestController extends Controller
     public function adminAction()
     {
         return $this->renderMessage(self::ADMIN_MESSAGE);
+    }
+
+    public function forbiddenAction()
+    {
+        return $this->renderMessage(self::FORBIDDEN_MESSAGE);
+    }
+
+    public function loginAction()
+    {
+        return $this->renderMessage(self::LOGIN_MESSAGE);
     }
 
     private function renderMessage($message)

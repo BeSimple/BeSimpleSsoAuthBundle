@@ -2,14 +2,12 @@ framework:
     charset:       UTF-8
     secret:        test
     csrf_protection:
-        enabled: false
-
+        enabled: true
     validation:    { enabled: true, enable_annotations: true }
     templating:    { engines: ["twig"] }
     form: ~
     test: ~
     session:
-        default_locale: en
         lifetime:       3600
         auto_start:     true
         storage_id:     session.storage.filesystem
@@ -39,8 +37,8 @@ security:
     providers:
         in_memory:
             users:
-                "user": { password: user, roles: ["ROLE_USER"] }
+                "user":  { password: user,  roles: ["ROLE_USER"] }
                 "admin": { password: admin, roles: ["ROLE_ADMIN"] }
     access_control:
-        - { path: /secured/user, roles: ROLE_USER }
-        - { path: /secured/admin, roles: ROLE_ADMIN }
+        - { path: ^/secured/user,  roles: ROLE_USER }
+        - { path: ^/secured/admin, roles: ROLE_ADMIN }

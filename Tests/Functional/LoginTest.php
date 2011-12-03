@@ -59,10 +59,10 @@ class LoginTest extends WebTestCase
     {
         return array(
             array('/secured',       self::LOGIN_USER,    TestController::SECURED_MESSAGE),
-            array('/secured',       self::LOGIN_INVALID, TrustedSsoController::LOGIN_REQUIRED_MESSAGE),
+            array('/secured',       self::LOGIN_INVALID, TestController::LOGIN_MESSAGE),
             array('/secured/user',  self::LOGIN_USER,    TestController::USER_MESSAGE),
             array('/secured/admin', self::LOGIN_ADMIN,   TestController::ADMIN_MESSAGE),
-            // got 500 AccessDenied with array('/secured/admin', self::LOGIN_USER, TrustedSsoController::LOGIN_REQUIRED_MESSAGE)
+            array('/secured/admin', self::LOGIN_USER,    TestController::FORBIDDEN_MESSAGE)
         );
     }
 }

@@ -43,7 +43,8 @@ class AnonTest extends WebTestCase
 
     private function processTest(Client $client, $url, $expectedMessage)
     {
-        $message = $client->request('GET', $url)->filter('#message')->text();
+        $crawler = $client->request('GET', $url);
+        $message = $crawler->filter('#message')->text();
         $this->assertEquals($expectedMessage, $message);
     }
 }

@@ -13,16 +13,16 @@ services:
 security:
     firewalls:
         cas:
-            pattern: ^/secured.*$
+            access_denied_url: /forbidden
+            pattern:           ^/secured.*$
             trusted_sso:
                 server:        cas
-                login_path:    /secured
+                login_path:    /login
                 check_path:    /secured/check
                 login_action:  be_simple_sso_auth.test_controller.trusted:loginAction
                 logout_action: be_simple_sso_auth.test_controller.trusted:logoutAction
             logout:
-                path:   /secured/logout
-                target: /secured
+                path:          /secured/logout
 
 be_simple_sso_auth:
     cas:

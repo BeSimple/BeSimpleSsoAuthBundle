@@ -20,19 +20,21 @@ class HttpClient implements ClientInterface
 
     public function send(BuzzRequest $buzzRequest, BuzzResponse $buzzResponse)
     {
+        $session  = session_id();
         $request  = Request::create($buzzRequest->getUrl(), $buzzRequest->getMethod());
         $response = static::$kernel->handle($request);
 
         $buzzResponse->setContent($response->getContent());
+
+        // kernel handling set session_id to empty string
+        session_id($session);
     }
 
     public function setTimeout($timeout)
     {
-        return;
     }
 
     public function setMaxRedirects($maxRedirects)
     {
-        return;
     }
 }
