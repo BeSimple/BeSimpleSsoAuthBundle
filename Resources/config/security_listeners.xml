@@ -15,7 +15,7 @@
     <services>
         <service id="security.authentication.trusted_sso_entry_point" class="%security.authentication.trusted_sso_entry_point.class%" public="false">
             <argument type="service" id="http_kernel" />
-            <argument type="service" id="be_simple_sso_auth.sso_factory" />
+            <argument type="service" id="be_simple.sso_auth.factory" />
             <!-- $ssoProviderFactoryConfig -->
         </service>
 
@@ -30,7 +30,7 @@
 
         <service id="security.logout.sso.success_handler" class="%security.logout.sso_success_handler.class%">
             <argument type="service" id="http_kernel" />
-            <argument type="service" id="be_simple_sso_auth.sso_factory" />
+            <argument type="service" id="be_simple.sso_auth.factory" />
             <!-- $ssoProviderFactoryConfig -->
         </service>
 
@@ -40,7 +40,7 @@
             <argument type="service" id="security.authentication.session_strategy" />
             <argument type="service" id="security.http_utils" />
             <argument /><!-- $providerKey -->
-            <argument type="service" id="be_simple_sso_auth.sso_factory" />
+            <argument type="service" id="be_simple.sso_auth.factory" />
             <argument type="collection" /><!-- $options = array() -->
             <argument type="service" id="security.authentication.success_handler" on-invalid="null" />
             <argument type="service" id="security.authentication.failure_handler" on-invalid="null" />

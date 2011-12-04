@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="be_simple.sso_auth.factory.class">BeSimple\SsoAuthBundle\Sso\Factory</parameter>
+        <parameter key="be_simple.sso_auth.client.class">Buzz\Client\Client</parameter>
+    </parameters>
+
+    <services>
+        <service id="be_simple.sso_auth.client" class="%be_simple.sso_auth.client.class%">
+        </service>
+
+        <service id="be_simple.sso_auth.factory" class="%be_simple.sso_auth.factory.class%">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="be_simple.sso_auth.client" />
+        </service>
+    </services>
+</container>

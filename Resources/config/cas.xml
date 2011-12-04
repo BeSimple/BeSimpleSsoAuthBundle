@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="be_simple.sso_auth.protocol.cas.class">BeSimple\SsoAuthBundle\Sso\Cas\Protocol</parameter>
+        <parameter key="be_simple.sso_auth.server.cas.class">BeSimple\SsoAuthBundle\Sso\Cas\Server</parameter>
+    </parameters>
+
+    <services>
+        <service id="be_simple.sso_auth.protocol.cas" class="%be_simple.sso_auth.protocol.cas.class%">
+            <tag name="be_simple.sso_auth.protocol" id="cas" />
+        </service>
+
+        <service id="be_simple.sso_auth.server.cas" class="%be_simple.sso_auth.server.cas.class%">
+            <tag name="be_simple.sso_auth.server" id="cas" />
+        </service>
+    </services>
+</container>

@@ -3,16 +3,12 @@ _common:
 
 server_login:
     pattern:  /server/login
-    defaults: { _controller: be_simple_sso_auth.server_controller.cas:loginAction }
+    defaults: { _controller: be_simple.sso_auth.server_controller.cas:loginAction }
 
-server_validation_v1:
-    pattern:  /server/validate
-    defaults: { _controller: be_simple_sso_auth.server_controller.cas:validationAction, version: 1 }
-
-server_validation_v2:
-    pattern:  /server/serviceValidate
-    defaults: { _controller: be_simple_sso_auth.server_controller.cas:validationAction, version: 2 }
+server_validation:
+    pattern:  /server/validation
+    defaults: { _controller: be_simple.sso_auth.server_controller.cas:validationAction, version: 2 }
 
 server_logout:
     pattern:  /server/logout
-    defaults: { _controller: be_simple_sso_auth.server_controller.cas:logoutAction }
+    defaults: { _controller: be_simple.sso_auth.server_controller.cas:logoutAction }

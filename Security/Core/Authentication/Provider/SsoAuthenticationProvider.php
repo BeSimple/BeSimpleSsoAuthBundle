@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
+use BeSimple\SsoAuthBundle\Sso\Manager;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 use BeSimple\SsoAuthBundle\Sso\ValidationInterface;
 
@@ -19,7 +19,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
     /**
      * @var UserProviderInterface
      */
-    protected $userProvider;
+    private $userProvider;
 
     /**
      * @var UserCheckerInterface
@@ -29,29 +29,27 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
     /**
      * @var bool
      */
-    private $createNotFoundUsers;
-
-    /**
-     * @var bool
-     */
     private $hideUserNotFoundExceptions;
 
     /**
-     * @param UserCheckerInterface $userChecker
-     * @param bool $createNotFoundUsers
-     * @param bool $hideUserNotFoundExceptions
+     * Constructor.
+     *
+     * @param \Symfony\Component\Security\Core\User\UserProviderInterface $userProvider
+     * @param \Symfony\Component\Security\Core\User\UserCheckerInterface  $userChecker
+     * @param bool                                                        $hideUserNotFoundExceptions
      */
-    public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker, $createNotFoundUsers = false, $hideUserNotFoundExceptions = true)
+    public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker, $hideUserNotFoundExceptions = true)
     {
         $this->userProvider               = $userProvider;
         $this->userChecker                = $userChecker;
-        $this->createNotFoundUsers        = $createNotFoundUsers;
         $this->hideUserNotFoundExceptions = $hideUserNotFoundExceptions;
     }
 
     /**
      * @throws \Symfony\Component\Security\Core\Exception\AuthenticationServiceException
+     *
      * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token
+     *
      * @return SsoToken|null
      */
     public function authenticate(TokenInterface $token)
@@ -60,22 +58,24 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
             return null;
         }
 
-        $ssoProvider = $token->getProvider();
-        $validation  = $this->validateCredentials($ssoProvider, $token->getCredentials());
-        $user        = $this->provideUser($ssoProvider, $validation);
+        $validation = $token->validate();
+        if (!$validation->isSuccess()) {
+            throw new BadCredentialsException('Authentication has not been validated by SSO provider.');
+        }
 
+
+        $user = $this->provideUser($validation->getUsername());
         $this->userChecker->checkPreAuth($user);
         $this->userChecker->checkPostAuth($user);
 
-        $authenticatedToken = new SsoToken($ssoProvider, $token->getCredentials(), $user, $user->getRoles());
-        $authenticatedToken->setAttributes($token->getAttributes());
+        $token = new SsoToken($token->getManager(), $token->getCredentials(), $user, $user->getRoles());
+        $token->setAttributes($token->getAttributes());
 
-        return $authenticatedToken;
+        return $token;
     }
 
     /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token
-     * @return bool
+     * {@inheritdoc}
      */
     public function supports(TokenInterface $token)
     {
@@ -83,20 +83,19 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
     }
 
     /**
-     * @throws UsernameNotFoundException
-     * @param SsoToken $token
+     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
+     *
+     * @param string $username
+     *
      * @return UserInterface
      */
-    protected function provideUser(ProviderInterface $ssoProvider, ValidationInterface $validation)
+    protected function provideUser($username)
     {
-        $username = $ssoProvider->formatUsername($validation->getUsername());
-
         try {
             $user = $this->retrieveUser($username);
         } catch (UsernameNotFoundException $notFound) {
-            if ($this->createNotFoundUsers && $this->userProvider instanceof UserFactoryInterface) {
-                $user = $this->createUser($username, $validation->getAttributes());
-            } else if ($this->hideUserNotFoundExceptions) {
+            if ($this->hideUserNotFoundExceptions) {
                 throw new BadCredentialsException('Bad credentials', 0, $notFound);
             } else {
                 throw $notFound;
@@ -107,8 +106,10 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
     }
 
     /**
-     * @throws UsernameNotFoundException
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationServiceException
+     *
      * @param string $username
+     *
      * @return UserInterface
      */
     protected function retrieveUser($username)
@@ -126,47 +127,5 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
         }
 
         return $user;
-    }
-
-    /**
-     * @throws AuthenticationServiceException
-     * @param string $username
-     * @param array $attributes
-     * @return UserInterface
-     */
-    protected function createUser($username, array $attributes)
-    {
-        if (! $this->userProvider instanceof UserFactoryInterface) {
-            throw new AuthenticationServiceException('UserProvider must implement UserCreatorInterface to create unknon users.');
-        }
-
-        try {
-            $user = $this->userProvider->createUser($username, $attributes);
-
-            if (!$user instanceof UserInterface) {
-                throw new AuthenticationServiceException('The user provider must create an UserInterface object.');
-            }
-        } catch (\Exception $repositoryProblem) {
-            throw new AuthenticationServiceException($repositoryProblem->getMessage(), $username, 0, $repositoryProblem);
-        }
-
-        return $user;
-    }
-
-    /**
-     * @throws BadCredentialsException
-     * @param ProviderInterface $ssoProvider
-     * @param string $credentials
-     * @return ValidationInterface
-     */
-    protected function validateCredentials(ProviderInterface $ssoProvider, $credentials)
-    {
-        $validation = $ssoProvider->validateCredentials($credentials);
-
-        if ($validation->isSuccess()) {
-            return $validation;
-        }
-
-        throw new BadCredentialsException('Authentication has not been validated by SSO provider.');
     }
 }

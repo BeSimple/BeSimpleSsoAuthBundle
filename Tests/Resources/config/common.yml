@@ -15,12 +15,14 @@ framework:
 services:
     logger:
         class: Symfony\Component\HttpKernel\Log\NullLogger
-    be_simple_sso_auth.test_controller.test:
+    be_simple.sso_auth.test_controller.test:
         class: BeSimple\SsoAuthBundle\Tests\Controller\TestController
         arguments: [@service_container]
-    be_simple_sso_auth.test_controller.trusted:
+    be_simple.sso_auth.test_controller.trusted:
         class: BeSimple\SsoAuthBundle\Tests\Controller\TrustedSsoController
         arguments: [@service_container]
+    be_simple.sso_auth.client:
+        class: BeSimple\SsoAuthBundle\Tests\HttpClient
 
 twig:
     debug:            %kernel.debug%

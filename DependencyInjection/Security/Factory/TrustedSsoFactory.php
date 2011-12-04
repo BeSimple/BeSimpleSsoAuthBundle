@@ -2,17 +2,17 @@
 
 namespace BeSimple\SsoAuthBundle\DependencyInjection\Security\Factory;
 
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
 
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
 class TrustedSsoFactory extends AbstractSsoFactory
 {
     public function __construct()
     {
-        $this->addOption('server');
+        $this->addOption('manager');
         $this->addOption('login_action', 'BeSimpleSsoAuthBundle:TrustedSso:login');
         $this->addOption('logout_action', 'BeSimpleSsoAuthBundle:TrustedSso:logout');
     }

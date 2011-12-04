@@ -5,48 +5,140 @@ namespace BeSimple\SsoAuthBundle\Sso;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Buzz\Client\ClientInterface;
+use BeSimple\SsoAuthBundle\Exception\ConfigNotFoundException;
+use BeSimple\SsoAuthBundle\Exception\ServerNotFoundException;
+use BeSimple\SsoAuthBundle\Exception\ProtocolNotFoundException;
 
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
 class Factory
 {
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    /**
+     * @var array
+     */
+    private $servers;
+
+    /**
+     * @var array
+     */
+    private $protocols;
+
+    /**
+     * @var array
+     */
+    private $managers;
+
+    /**
+     * @var \Buzz\Client\ClientInterface
+     */
+    private $client;
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container, ClientInterface $client)
     {
         $this->container = $container;
+        $this->servers   = array();
+        $this->protocols = array();
+        $this->managers  = array();
+        $this->client    = $client;
     }
 
-    public function createProvider($serverName, $returnPath)
+    /**
+     * @param string $id
+     * @param string $service
+     */
+    public function addServer($id, $service)
     {
-        $config    = $this->getServerConfig($serverName);
-        $provider  = $this->container->get(sprintf('be_simple_sso_auth.sso_provider.%s', $config['protocol']));
-        $returnUrl = $this->container->get('request')->getUriForPath($returnPath);
-
-        $provider
-            ->getServer()
-            ->setBaseUrl($config['base_url'])
-            ->setReturnUrl($returnUrl)
-            ->setVersion($config['version'])
-            ->setValidationMethod($config['validation_request']['method'])
-            ->setValidationClient($this->getValidationClient($config['validation_request']))
-            ->setUsernameFormat($config['username'])
-        ;
-
-        return $provider;
+        $this->servers[$id] = $service;
     }
 
-    private function getServerConfig($serverName)
+    /**
+     * @param string $id
+     * @param string $service
+     */
+    public function addProtocol($id, $service)
     {
-        return $this->container->getParameter(sprintf('be_simple_sso_auth.%s_config', $serverName));
+        $this->protocols[$id] = $service;
     }
 
-    private function getValidationClient(array $config)
+    /**
+     * @param string $id
+     * @param string $checkUrl
+     *
+     * @return Manager
+     */
+    public function getManager($id, $checkUrl)
     {
-        $class  = strpos($config['client'], '\\') ? $config['client'] : sprintf('Buzz\\Client\\%s', $config['client']);
-        $client = new $class();
+        if (!isset($this->managers[$id])) {
+            $this->managers[$id] = $this->createManager($id, $checkUrl);
+        }
 
-        $client->setTimeout($config['timeout']);
-        $client->setMaxRedirects($config['max_redirects']);
+        return $this->managers[$id];
+    }
 
-        return $client;
+    /**
+     * @param string $id
+     * @param string $checkUrl
+     *
+     * @return Manager
+     *
+     * @throws \BeSimple\SsoAuthBundle\Exception\ConfigNotFoundException
+     */
+    private function createManager($id, $checkUrl)
+    {
+        $parameter = sprintf('be_simple.sso_auth.manager.%s', $id);
+
+        if (!$this->container->hasParameter($parameter)) {
+            throw new ConfigNotFoundException($id);
+        }
+
+        $config = $this->container->getParameter($parameter);
+        $config['server']['check_url'] = $checkUrl;
+
+        return new Manager($this->getServer($config['server']), $this->getProtocol($config['protocol']), $this->client);
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return ServerInterface
+     *
+     * @throws \BeSimple\SsoAuthBundle\Exception\ServerNotFoundException
+     */
+    private function getServer(array $config)
+    {
+        $id = $config['id'];
+
+        if (!isset($this->servers[$id])) {
+            throw new ServerNotFoundException($id);
+        }
+
+        return $this->container->get($this->servers[$id])->setConfig($config);
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return ProtocolInterface
+     *
+     * @throws \BeSimple\SsoAuthBundle\Exception\ProtocolNotFoundException
+     */
+    private function getProtocol(array $config)
+    {
+        $id = $config['id'];
+
+        if (!isset($this->protocols[$id])) {
+            throw new ProtocolNotFoundException($id);
+        }
+
+        return $this->container->get($this->protocols[$id])->setConfig($config);
     }
 }

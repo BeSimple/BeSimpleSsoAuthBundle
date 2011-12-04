@@ -12,7 +12,7 @@ Install bundle & dependency
 If already using GIT for your project:
 
     # add bundle submodule
-    git submodule add https://jfsimon@github.com/jfsimon/SsoAuthBundle.git vendor/bundles/BeSimple/SsoAuthBundle
+    git submodule add https://github.com/BeSimple/BeSimpleSsoAuthBundle.git vendor/bundles/BeSimple/SsoAuthBundle
 
     # add Buzz library submodule
     git submodule add https://github.com/kriswallsmith/Buzz.git vendor/buzz
@@ -21,7 +21,7 @@ If already using GIT for your project:
 Else (maybe you should):
 
     # clone bundle
-    git clone https://jfsimon@github.com/jfsimon/SsoAuthBundle.git vendor/bundles/BeSimple/SsoAuthBundle
+    git clone https://github.com/BeSimple/BeSimpleSsoAuthBundle.git vendor/bundles/BeSimple/SsoAuthBundle
 
     # clone Buzz library
     git clone https://github.com/kriswallsmith/Buzz.git vendor/buzz
@@ -74,12 +74,4 @@ Run the tests
 
 From your project root dicrectory:
 
-    phpunit -c app vendor/bundles/BeSimple/SsoAuthBundle
-
-
-Navigation
-----------
-
-
--   Next: [Configure trusted SSO](trusted.md)
--   [Index](index.md)
+    phpunit -c app vendor/bundles/BeSimple/SsoAuthBundle/Tests

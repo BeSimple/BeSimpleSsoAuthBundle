@@ -5,101 +5,40 @@ namespace BeSimple\SsoAuthBundle\Sso;
 use Buzz\Client\ClientInterface;
 use Buzz\Message\Request;
 
-abstract class AbstractServer
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
+abstract class AbstractServer extends AbstractComponent
 {
-    protected $validationClient;
-    protected $validationMethod;
-    protected $baseUrl;
-    protected $returnUrl;
-    protected $version;
-    protected $usernameFormat;
-
-    public function __construct()
+    /**
+     * @return string
+     */
+    public function getLoginUrl()
     {
-        $this->validationClient = null;
-        $this->validationMethod = Request::METHOD_GET;
-        $this->baseUrl          = null;
-        $this->returnUrl        = null;
-        $this->version          = 1;
+        return $this->config['login_url'];
     }
 
-    public function getId()
+    /**
+     * @return string
+     */
+    public function getLogoutUrl()
     {
-        $parts = parse_url($this->baseUrl);
-
-        return (isset($parts['host']) ? $parts['host'] : 'localhost')
-            .(isset($parts['path']) && $parts['path'] !== '/' ? $parts['path'] : '');
+        return $this->config['logout_url'];
     }
 
-    public function getValidationClient()
+    /**
+     * @return string
+     */
+    public function getValidationUrl()
     {
-        return $this->validationClient;
+        return $this->config['validation_url'];
     }
 
-    public function setValidationClient(ClientInterface $client)
+    /**
+     * @return string
+     */
+    public function getCheckUrl()
     {
-        $this->validationClient = $client;
-
-        return $this;
-    }
-
-    public function getValidationMethod()
-    {
-        return $this->validationMethod;
-    }
-
-    public function setValidationMethod($validationMethod)
-    {
-        $this->validationMethod = strtoupper($validationMethod);
-
-        return $this;
-    }
-
-    public function getBaseUrl()
-    {
-        return $this->baseUrl;
-    }
-
-    public function setBaseUrl($baseUrl)
-    {
-        $this->baseUrl = $baseUrl;
-
-        return $this;
-    }
-
-    public function getReturnUrl()
-    {
-        return $this->returnUrl;
-    }
-
-    public function setReturnUrl($returnUrl)
-    {
-        $this->returnUrl = $returnUrl;
-
-        return $this;
-    }
-
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    public function getUsernameFormat()
-    {
-        return $this->usernameFormat;
-    }
-
-    public function setUsernameFormat($usernameFormat)
-    {
-        $this->usernameFormat = $usernameFormat;
-
-        return $this;
+        return $this->config['check_url'];
     }
 }

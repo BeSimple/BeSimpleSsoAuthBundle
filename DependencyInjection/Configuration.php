@@ -3,16 +3,22 @@
 namespace BeSimple\SsoAuthBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\NodeInterface;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * @var bool
+     */
     private $debug;
 
     /**
-     * @param Boolean $debug
+     * @param bool $debug
      */
     public function  __construct($debug)
     {
@@ -25,30 +31,36 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        
-        $treeBuilder
+
+        $serverDefinition = $treeBuilder
             ->root('be_simple_sso_auth')
-            ->fixXmlConfig('server')
+            ->fixXmlConfig('provider')
             ->useAttributeAsKey('id')
-            ->prototype('array')
-                ->children()
-                    ->scalarNode('protocol')->cannotBeEmpty()->end()
-                    ->scalarNode('base_url')->cannotBeEmpty()->end()
-                    ->scalarNode('version')->defaultValue(1)->end()
-                    ->scalarNode('username')->defaultValue('{username}@{server_id}')->end()
-                    ->arrayNode('validation_request')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('client')->defaultValue('FileGetContents')->end()
-                            ->scalarNode('method')->defaultValue('get')->end()
-                            ->scalarNode('timeout')->defaultValue(5)->end()
-                            ->scalarNode('max_redirects')->defaultValue(5)->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
+            ->prototype('array');
+
+        $this->setComponentDefinition($serverDefinition, 'protocol');
+        $this->setComponentDefinition($serverDefinition, 'server');
 
         return $treeBuilder;
+    }
+
+    /**
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $serverDefinition
+     * @param string                                                           $name
+     *
+     * todo: validate component configuration
+     */
+    private function setComponentDefinition(ArrayNodeDefinition $serverDefinition, $name)
+    {
+        $serverDefinition
+            ->children()
+                ->arrayNode($name)
+                    ->useAttributeAsKey('id')
+                    ->beforeNormalization()
+                        ->ifString()->then(function($value) {
+                            return array('id' => $value);
+                        })
+                    ->end()
+                    ->prototype('scalar');
     }
 }

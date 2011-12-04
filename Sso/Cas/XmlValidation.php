@@ -5,9 +5,15 @@ namespace BeSimple\SsoAuthBundle\Sso\Cas;
 use BeSimple\SsoAuthBundle\Sso\AbstractValidation;
 use BeSimple\SsoAuthBundle\Sso\ValidationInterface;
 use Buzz\Message\Response;
- 
-class CasV2Validation extends AbstractValidation implements ValidationInterface
+
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
+class XmlValidation extends AbstractValidation implements ValidationInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function validateResponse(Response $response)
     {
         $content = $response->getContent();

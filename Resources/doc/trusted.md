@@ -10,7 +10,7 @@ Firewall configuration
 
 BeSimpleSsoAuthBundle adds 3 configuration entries to standard (form_login) firewall wich are:
 
--   `server`: name of the server configured under `be_simple_sso_auth` config section (see below).
+-   `manager`: name of the manager configured under `be_simple_sso_auth` config section (see below).
 -   `login_action`: when login required, user is forwarded to this action (wich by default tell him to
     follow given link to authenticate). Set to `false` to auto-redirect user to SSO login form.
 -   `logout_action`: same as `login_action`, but for logout.
@@ -39,7 +39,7 @@ Other optional configuration entries are:
             my_firewall:
                 pattern: ^/secured-area/.*$
                 trusted_sso:
-                    server: my_server
+                    manager: my_manager
                     login_action: BeSimpleSsoAuthBundle:TrustedSso:login
                     logout_action: BeSimpleSsoAuthBundle:TrustedSso:logout
                     # ...
@@ -50,45 +50,15 @@ Server configuration
 --------------------
 
 
-**Required entries:**
+An example:
 
--   `protocol`: protocol alias as defined in services.
--   `base_url`: server base url.
-
-
-**Optional entries:**
-
--   `version` (default 1): protocol version.
--   `username` (default '{username}@{server_id}'): username format (see below).
--   `validation_request`:
-    -   `client` (default 'FileGetContents'): Buzz library client implementation.
-    -   `method` (default 'get'): HTTP method.
-    -   `timeout` (default 5): HTTP timeout in seconds.
-    -   `max_redirects` (default 5): maximum allowed redirects.
-
-
-**Username formatting:**
-
-If you use many authentication systems, you may get many users with same username.
-To avoid collision, you can format usernames (with the `username` configuration entry)
-with SSO specific variables. Valid placeholders are:
-
--   `username`: the username.
--   `server_id`: SSO server ID.
-
-
-**An example in YAML format:**
-
-    # config.yml
     be_simple_sso_auth:
-        my_server:
-            protocol: cas                           # required
-            version: 2
-            base_url: http://cas.domain.tls/path    # required
-            username: {username}@{server_id}
-            validation_request:
-                client: Curl                        # or FileGetContents
-                method: get
-                timeout: 5                          # in seconds
-                max_redirects: 5
-        # ...
+        my_manager:
+            protocol:
+                id: cas
+                version: 2
+            server:
+                id: cas
+                login_url: http://cas.server.tld/login
+                logout_url: http://cas.server.tld/logout
+                validation_url: http://cas.server.tld/validation

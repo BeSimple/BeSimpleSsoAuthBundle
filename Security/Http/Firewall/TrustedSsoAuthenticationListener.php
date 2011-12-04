@@ -17,23 +17,28 @@ use BeSimple\SsoAuthBundle\Sso\Factory;
 
 class TrustedSsoAuthenticationListener extends AbstractAuthenticationListener
 {
-    private $ssoFactory;
+    private $factory;
 
-    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, SessionAuthenticationStrategyInterface $sessionStrategy, HttpUtils $httpUtils, $providerKey, Factory $ssoFactory, array $options = array(), AuthenticationSuccessHandlerInterface $successHandler = null, AuthenticationFailureHandlerInterface $failureHandler = null, LoggerInterface $logger = null, EventDispatcherInterface $dispatcher = null)
+    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, SessionAuthenticationStrategyInterface $sessionStrategy, HttpUtils $httpUtils, $providerKey, Factory $factory, array $options = array(), AuthenticationSuccessHandlerInterface $successHandler = null, AuthenticationFailureHandlerInterface $failureHandler = null, LoggerInterface $logger = null, EventDispatcherInterface $dispatcher = null)
     {
         parent::__construct($securityContext, $authenticationManager, $sessionStrategy, $httpUtils, $providerKey, $options, $successHandler, $failureHandler, $logger, $dispatcher);
 
-        $this->ssoFactory = $ssoFactory;
+        $this->factory = $factory;
     }
 
     protected function attemptAuthentication(Request $request)
     {
-        $ssoProvider = $this->ssoFactory->createProvider($this->options['server'], $this->options['check_path']);
+        $manager = $this->factory->getManager($this->options['manager'], $request->getUriForPath($this->options['check_path']));
 
-        if (!$ssoProvider->isValidationRequest($request)) {
+        if (!$manager->getProtocol()->isValidationRequest($request)) {
             return null;
         }
 
-        return $this->authenticationManager->authenticate($ssoProvider->createToken($request));
+
+        $credentials = $manager->getProtocol()->extractCredentials($request);
+        $validation  = $manager->validateCredentials($credentials);
+        $token       = $manager->createToken($validation);
+
+        return $this->authenticationManager->authenticate($token);
     }
 }

@@ -18,7 +18,7 @@ class SsoLogoutHandler implements LogoutHandlerInterface
     public function logout(Request $request, Response $response, TokenInterface $token)
     {
         if ($token instanceof SsoToken) {
-            $token->getProvider()->processLogout($token);
+            $token->getManager()->processLogout($token);
         }
     }
 }

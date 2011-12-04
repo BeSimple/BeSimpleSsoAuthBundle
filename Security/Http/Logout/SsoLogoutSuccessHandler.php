@@ -16,9 +16,9 @@ class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
     protected $httpKernel;
 
     /**
-     * @var SsoFactory
+     * @var Factory
      */
-    protected $ssoFactory;
+    protected $factory;
 
     /**
      * @var array
@@ -27,33 +27,34 @@ class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
 
     /**
      * @param HttpKernel $httpKernel
-     * @param SsoProviderFactory $ssoFactory
-     * @param array $ssoConfig
+     * @param Factory    $factory
+     * @param array      $config
      */
-    public function __construct(HttpKernel $httpKernel, Factory $ssoFactory, array $config)
+    public function __construct(HttpKernel $httpKernel, Factory $factory, array $config)
     {
         $this->httpKernel = $httpKernel;
-        $this->ssoFactory = $ssoFactory;
+        $this->factory    = $factory;
         $this->config     = $config;
     }
 
     /**
      * @param Request $request
      * @param null|AuthenticationException $authException
+     *
      * @return Response
      */
     public function onLogoutSuccess(Request $request)
     {
-        $action   = $this->config['logout_action'];
-        $provider = $this->ssoFactory->createProvider($this->config['server'], $this->config['check_path']);
+        $action  = $this->config['logout_action'];
+        $manager = $this->factory->getManager($this->config['manager'], $request->getUriForPath($this->config['check_path']));
 
         if ($action) {
             return $this->httpKernel->forward($action, array(
-                'provider' => $provider,
-                'request'  => $request,
+                'manager' => $manager,
+                'request' => $request,
             ));
         }
 
-        return $provider->handleLogout();
+        return new RedirectResponse($manager->getServer()->getLogoutUrl());
     }
 }

@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
 abstract class AbstractSsoFactory extends AbstractFactory
 {
     public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPointId)
@@ -24,7 +27,7 @@ abstract class AbstractSsoFactory extends AbstractFactory
     protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId)
     {
         $provider = 'security.authentication.provider.sso.'.$id;
-        
+
         $container
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.provider.sso'))
             ->replaceArgument(0, new Reference($userProviderId))

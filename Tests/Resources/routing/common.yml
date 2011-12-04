@@ -1,26 +1,26 @@
 anon:
     pattern:  /anon
-    defaults: { _controller: be_simple_sso_auth.test_controller.test:anonAction }
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:anonAction }
 
 secured:
     pattern:  /secured
-    defaults: { _controller: be_simple_sso_auth.test_controller.test:securedAction }
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:securedAction }
 
 secured_user:
     pattern:  /secured/user
-    defaults: { _controller: be_simple_sso_auth.test_controller.test:userAction }
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:userAction }
 
 secured_admin:
     pattern:  /secured/admin
-    defaults: { _controller: be_simple_sso_auth.test_controller.test:adminAction }
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:adminAction }
 
 logout:
     pattern:  /secured/logout
 
 forbidden:
     pattern:  /forbidden
-    defaults: { _controller: be_simple_sso_auth.test_controller.test:forbiddenAction }
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:forbiddenAction }
 
 login:
     pattern:  /login
-    defaults: { _controller: be_simple_sso_auth.test_controller.test:loginAction }
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:loginAction }

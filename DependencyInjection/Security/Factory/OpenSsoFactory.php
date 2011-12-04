@@ -2,12 +2,11 @@
 
 namespace BeSimple\SsoAuthBundle\DependencyInjection\Security\Factory;
 
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
-use BeSimple\SsoAuthBundle\Sso\ProviderInterface;
 
+/**
+ * @author: Jean-François Simon <contact@jfsimon.fr>
+ */
 class OpenSsoFactory extends AbstractSsoFactory
 {
     public function __construct()
