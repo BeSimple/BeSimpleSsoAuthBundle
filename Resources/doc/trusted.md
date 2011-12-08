@@ -33,8 +33,8 @@ Other optional configuration entries are:
 **An example in YAML format:**
 
     # security.yml
+
     security:
-        # ...
         firewalls:
             my_firewall:
                 pattern: ^/secured-area/.*$
@@ -42,15 +42,18 @@ Other optional configuration entries are:
                     manager: my_manager
                     login_action: BeSimpleSsoAuthBundle:TrustedSso:login
                     logout_action: BeSimpleSsoAuthBundle:TrustedSso:logout
-                    # ...
-        #...
 
 
-Server configuration
---------------------
+Manager configuration
+---------------------
 
 
-An example:
+Now you must configure your `my_manager` manager.
+
+
+**An example in YAML format:**
+
+    # config.yml
 
     be_simple_sso_auth:
         my_manager:

@@ -9,6 +9,6 @@ class ServerNotFoundException extends NotFoundException
 {
     public function __construct($id, $code = null, $previous = null)
     {
-        parent::__construct('Server', $id, $code, $previous);
+        parent::__construct($id, 'Server', $code, $previous);
     }
 }

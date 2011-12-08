@@ -9,6 +9,6 @@ class ConfigNotFoundException extends NotFoundException
 {
     public function __construct($id, $code = null, $previous = null)
     {
-        parent::__construct('Config', $id, $code, $previous);
+        parent::__construct($id, 'Config', $code, $previous);
     }
 }

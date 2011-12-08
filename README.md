@@ -2,9 +2,17 @@ SSO authentication for Symfony2
 ===============================
 
 
-*Tests OK!*
+This bundle helps you to bring SSO authentication to yous Symfony2 project.
 
 
--   Only CAS protocol is implemented for now.
--   Documentation in Resources/doc
--   License in Resources/meta/LICENSE
+It works in two ways:
+
+-   **trusted**: authentication is done against a known server (like with CAS)
+-   **open**: authentication is done with server of user's choice (like with OpenId)
+
+
+Only CAS protocol is implemented for now, many other are planned.
+
+
+-   [Read documentation](https://github.com/BeSimple/BeSimpleSsoAuthBundle/blob/master/Resources/doc/index.md)
+-   [See the license](https://github.com/BeSimple/BeSimpleSsoAuthBundle/blob/master/Resources/meta/LICENSE)

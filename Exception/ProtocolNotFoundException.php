@@ -9,6 +9,6 @@ class ProtocolNotFoundException extends NotFoundException
 {
     public function __construct($id, $code = null, $previous = null)
     {
-        parent::__construct('Protocol', $id, $code, $previous);
+        parent::__construct($id, 'Protocol', $code, $previous);
     }
 }

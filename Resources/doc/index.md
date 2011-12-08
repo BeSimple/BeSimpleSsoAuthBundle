@@ -1,25 +1,24 @@
-BeSimpleSsoAuthBundle documentation
-===================================
+BeSimpleSsoAuthBundle documentation summary
+===========================================
 
 
-This bundle helps you to bring SSO authentication to yous Symfony2 project.
-
-It works in two ways:
-
--   **trusted**: authentication is done against a known server (like with CAS)
--   **open**: authentication is done with server of user's choice (like with OpenId)
-
-
-Documentation summary
----------------------
-
-
-The basics:
+The basics
+----------
 
 -   [Installation & setup](install.md)
--   [Configure trusted SSO](trusted.md) *CAS only for now*
+-   [Configure trusted SSO](trusted.md)
+-   Configure open SSO (*to come*)
 
 
-Reminder:
+Advanced use
+------------
+
+-   Customize SSO server (*to come*)
+-   Add a protocol (*to come*)
+-   Manage users (*to come*)
+
+
+Some notes
+----------
 
 -   [Some SSO protocols](protocols.md)
