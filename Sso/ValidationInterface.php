@@ -36,7 +36,6 @@ interface ValidationInterface
      */
     public function getUsername();
 
-
     /**
      * Returns attributes given by SSO server.
      *
