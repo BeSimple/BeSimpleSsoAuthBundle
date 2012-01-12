@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="be_simple.sso_auth.factory.class">BeSimple\SsoAuthBundle\Sso\Factory</parameter>
-        <parameter key="be_simple.sso_auth.client.class">Buzz\Client\Client</parameter>
+        <parameter key="be_simple.sso_auth.client.class">BeSimple\SsoAuthBundle\Buzz\AdaptiveClient</parameter>
     </parameters>
 
     <services>
