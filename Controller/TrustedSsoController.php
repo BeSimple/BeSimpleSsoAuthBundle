@@ -12,7 +12,11 @@ class TrustedSsoController extends Controller
     {
         return $this->render(
             'BeSimpleSsoAuthBundle:TrustedSso:login.html.twig',
-            array('manager' => $manager, 'request' => $request, 'exception' => $exception)
+            array(
+                'manager'   => $manager,
+                'request'   => $request,
+                'exception' => $exception
+            )
         );
     }
 
@@ -20,7 +24,10 @@ class TrustedSsoController extends Controller
     {
         return $this->render(
             'BeSimpleSsoAuthBundle:TrustedSso:logout.html.twig',
-            array('manager' => $manager, 'request' => $request)
+            array(
+                'manager' => $manager,
+                'request' => $request
+            )
         );
     }
 }

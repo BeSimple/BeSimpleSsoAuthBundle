@@ -64,4 +64,4 @@ Now you must configure your `my_manager` manager.
                 id: cas
                 login_url: http://cas.server.tld/login
                 logout_url: http://cas.server.tld/logout
-                validation_url: http://cas.server.tld/validation
+                validation_url: http://cas.server.tld/serviceValidate
