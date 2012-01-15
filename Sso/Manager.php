@@ -57,24 +57,15 @@ class Manager
     }
 
     /**
-     * Creates a token from validation.
+     * Creates a token from the request.
      *
-     * @param ValidationInterface $validation
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken
      */
-    public function createToken(ValidationInterface $validation)
+    public function createToken(Request $request)
     {
-        if (!$validation->isSuccess()) {
-            throw new BadCredentialsException('Authentication has not been validated by SSO provider.');
-        }
-
-        $token = new SsoToken($this, $validation->getCredentials(), $validation->getUsername());
-        $token->setAttributes($validation->getAttributes());
-
-        return $token;
+        return new SsoToken($this, $this->protocol->extractCredentials($request));
     }
 
     /**

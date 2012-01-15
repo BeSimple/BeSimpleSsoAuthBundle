@@ -34,11 +34,6 @@ class TrustedSsoAuthenticationListener extends AbstractAuthenticationListener
             return null;
         }
 
-
-        $credentials = $manager->getProtocol()->extractCredentials($request);
-        $validation  = $manager->validateCredentials($credentials);
-        $token       = $manager->createToken($validation);
-
-        return $this->authenticationManager->authenticate($token);
+        return $this->authenticationManager->authenticate($manager->createToken($request));
     }
 }

@@ -63,7 +63,6 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
             throw new BadCredentialsException('Authentication has not been validated by SSO provider.');
         }
 
-
         $user = $this->provideUser($validation->getUsername());
         $this->userChecker->checkPreAuth($user);
         $this->userChecker->checkPostAuth($user);
