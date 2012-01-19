@@ -7,9 +7,18 @@ Get the sources, enable bundle & run the tests.
 
 Install bundle & dependency
 ---------------------------
+Using the Symfony vendors system, add this to your `deps` file in the root of your project.
+Then run `php bin/vendors install`:
 
+    [BeSimpleSsoAuthBundle]
+        git=https://github.com/BeSimple/BeSimpleSsoAuthBundle.git
+        target=/bundles/BeSimple/SsoAuthBundle
+    
+    [Buzz]
+        git=https://github.com/kriswallsmith/Buzz.git
+        target=buzz
 
-If already using GIT for your project:
+You can also add it as submodule in git:
 
     # add bundle submodule
     git submodule add https://github.com/BeSimple/BeSimpleSsoAuthBundle.git vendor/bundles/BeSimple/SsoAuthBundle
