@@ -30,6 +30,12 @@ class LoginTest extends WebTestCase
         $crawler = $client->submit($form, array('login[username]' => $login, 'login[password]' => $login));
         $this->assertEquals($expectedMessage, $crawler->filter('#message')->text());
 
+        if (!$login === self::LOGIN_INVALID) {
+            // check validation attributes
+            $attrs = static::$kernel->getContainer()->get('security.context')->getToken()->getValidationAttributes();
+            $this->assertEquals(array('attr1' => 'val1', 'attr2' => 'val2'), $attrs);
+        }
+
         // logout -> got logout redirect
         $crawler = $client->request('GET', '/secured/logout');
         $this->assertEquals(TrustedSsoController::LOGOUT_REDIRECT_MESSAGE, $crawler->filter('#message')->text());

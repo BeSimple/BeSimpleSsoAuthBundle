@@ -9,6 +9,7 @@ class SsoToken extends AbstractToken
 {
     private $manager;
     private $credentials;
+    private $validationAttributes;
 
     /**
      * Constructor.
@@ -20,23 +21,19 @@ class SsoToken extends AbstractToken
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(Manager $manager, $credentials, $user = null, array $roles = array())
+    public function __construct(Manager $manager, $credentials, $user = null, array $roles = array(), array $validationAttributes = array())
     {
         parent::__construct($roles);
 
-        $this->manager     = $manager;
-        $this->credentials = $credentials;
+        $this->manager              = $manager;
+        $this->credentials          = $credentials;
+        $this->validationAttributes = $validationAttributes;
 
         if (!is_null($user)) {
             $this->setUser($user);
 
             parent::setAuthenticated(true);
         }
-    }
-
-    public function validate()
-    {
-        return $this->manager->validateCredentials($this->credentials);
     }
 
     /**
@@ -59,6 +56,11 @@ class SsoToken extends AbstractToken
     public function getManager()
     {
         return $this->manager;
+    }
+
+    public function getValidationAttributes()
+    {
+        return $this->validationAttributes;
     }
 
     /**

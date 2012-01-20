@@ -58,7 +58,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
             return null;
         }
 
-        $validation = $token->validate();
+        $validation = $token->getManager()->validateCredentials($token->getCredentials());
         if (!$validation->isSuccess()) {
             throw new BadCredentialsException('Authentication has not been validated by SSO provider.');
         }
@@ -67,10 +67,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
         $this->userChecker->checkPreAuth($user);
         $this->userChecker->checkPostAuth($user);
 
-        $token = new SsoToken($token->getManager(), $token->getCredentials(), $user, $user->getRoles());
-        $token->setAttributes($token->getAttributes());
-
-        return $token;
+        return new SsoToken($token->getManager(), $token->getCredentials(), $user, $user->getRoles(), $validation->getAttributes());
     }
 
     /**
