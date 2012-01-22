@@ -22,8 +22,8 @@
         <service id="security.authentication.provider.sso" class="%security.authentication.provider.sso.class%" abstract="true" public="false">
             <argument /><!-- $userProvider -->
             <argument type="service" id="security.user_checker" />
-            <!-- $createNotFoundUsers = false -->
-            <!-- $hideUserNotFoundExceptions = true -->
+            <argument/><!-- $createNotFoundUsers -->
+            <argument/><!-- $hideUserNotFoundExceptions -->
         </service>
 
         <service id="security.logout.handler.sso" class="%security.logout.handler.sso.class%" public="false" />

@@ -31,6 +31,8 @@ abstract class AbstractSsoFactory extends AbstractFactory
         $container
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.provider.sso'))
             ->replaceArgument(0, new Reference($userProviderId))
+            ->replaceArgument(2, $config['create_not_found_users'])
+            ->replaceArgument(3, $config['hide_user_not_found_exceptions'])
         ;
 
         return $provider;

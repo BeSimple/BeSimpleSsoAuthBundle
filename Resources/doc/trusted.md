@@ -42,6 +42,8 @@ Other optional configuration entries are:
                     manager: my_manager
                     login_action: BeSimpleSsoAuthBundle:TrustedSso:login
                     logout_action: BeSimpleSsoAuthBundle:TrustedSso:logout
+                    create_not_found_users: false
+                    hide_user_not_found_exceptions: true
 
 
 Manager configuration
