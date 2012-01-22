@@ -12,11 +12,9 @@ class TrustedSsoFactory extends AbstractSsoFactory
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->addOption('manager');
-        $this->addOption('login_action', 'BeSimpleSsoAuthBundle:TrustedSso:login');
-        $this->addOption('logout_action', 'BeSimpleSsoAuthBundle:TrustedSso:logout');
-        $this->addOption('create_not_found_users', false);
-        $this->addOption('hide_user_not_found_exceptions', true);
     }
 
     public function getKey()

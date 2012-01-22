@@ -30,16 +30,6 @@ class SpawnedUserProvider implements UserProviderInterface
     }
 
     /**
-     * Adds a new User to the provider.
-     *
-     * @param UserInterface $user A UserInterface instance
-     */
-    public function createUser(UserInterface $user)
-    {
-        return $this->spawnUser($user->getUsername());
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function loadUserByUsername($username)

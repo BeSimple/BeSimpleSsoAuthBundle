@@ -9,7 +9,7 @@ use Buzz\Message\Request;
 /**
  * @author: Jean-François Simon <contact@jfsimon.fr>
  */
-class Server extends AbstractServer implements ServerInterface
+class Server extends AbstractServer
 {
     /**
      * @return string
@@ -36,7 +36,9 @@ class Server extends AbstractServer implements ServerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $credentials
+     *
+     * @return \Buzz\Message\Request
      */
     public function buildValidationRequest($credentials)
     {

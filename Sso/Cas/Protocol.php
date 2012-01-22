@@ -13,7 +13,7 @@ use Buzz\Client\ClientInterface;
 /**
  * @author: Jean-François Simon <contact@jfsimon.fr>
  */
-class Protocol extends AbstractProtocol implements ProtocolInterface
+class Protocol extends AbstractProtocol
 {
     /**
      * {@inheritdoc}

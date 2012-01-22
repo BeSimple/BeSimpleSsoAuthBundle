@@ -11,8 +11,7 @@ class OpenSsoFactory extends AbstractSsoFactory
 {
     public function __construct()
     {
-        $this->addOption('login_action', 'BeSimpleSsoAuthBundle:TrustedSso:login');
-        $this->addOption('logout_action', 'BeSimpleSsoAuthBundle:TrustedSso:logout');
+        parent::__construct();
     }
 
     public function getKey()

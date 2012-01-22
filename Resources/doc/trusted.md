@@ -14,6 +14,8 @@ BeSimpleSsoAuthBundle adds 3 configuration entries to standard (form_login) fire
 -   `login_action`: when login required, user is forwarded to this action (wich by default tell him to
     follow given link to authenticate). Set to `false` to auto-redirect user to SSO login form.
 -   `logout_action`: same as `login_action`, but for logout.
+-   `create_users`: authorize user provider to create not found users if implementing UserFactoryInterface.
+-   `created_users_roles`: an array of roles to assign to users created by user provider.
 
 Other required configuration entries are:
 
@@ -37,13 +39,13 @@ Other optional configuration entries are:
     security:
         firewalls:
             my_firewall:
-                pattern: ^/secured-area/.*$
+                pattern: ^/admin/.*$
                 trusted_sso:
-                    manager: my_manager
+                    manager: admin_sso
                     login_action: BeSimpleSsoAuthBundle:TrustedSso:login
                     logout_action: BeSimpleSsoAuthBundle:TrustedSso:logout
-                    create_not_found_users: false
-                    hide_user_not_found_exceptions: true
+                    create_users: true
+                    created_users_roles: [ROLE_USER, ROLE_ADMIN]
 
 
 Manager configuration
@@ -58,7 +60,7 @@ Now you must configure your `my_manager` manager.
     # config.yml
 
     be_simple_sso_auth:
-        my_manager:
+        admin_sso:
             protocol:
                 id: cas
                 version: 2

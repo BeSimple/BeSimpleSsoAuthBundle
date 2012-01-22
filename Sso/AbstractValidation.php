@@ -71,7 +71,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * @return \Buzz\Message\Response
+     * {@inheritdoc}
      */
     public function getResponse()
     {
@@ -79,9 +79,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * Parse response and returns result.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isSuccess()
     {
@@ -95,7 +93,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getCredentials()
     {
@@ -103,7 +101,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getUsername()
     {
@@ -111,7 +109,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getAttributes()
     {
@@ -119,7 +117,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getError()
     {
@@ -127,9 +125,7 @@ abstract class AbstractValidation implements ValidationInterface
     }
 
     /**
-     * @param \Buzz\Message\Response $response
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     abstract protected function validateResponse(Response $response);
 }

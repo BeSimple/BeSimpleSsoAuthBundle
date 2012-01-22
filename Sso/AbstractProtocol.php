@@ -11,14 +11,10 @@ use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 /**
  * @author: Jean-François Simon <contact@jfsimon.fr>
  */
-abstract class AbstractProtocol extends AbstractComponent
+abstract class AbstractProtocol extends AbstractComponent implements ProtocolInterface
 {
     /**
-     * Processes internal logout operations.
-     *
-     * @param \BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken $token
-     *
-     * @return void
+     * {@inheritdoc}
      */
     public function processLogout(SsoToken $token)
     {

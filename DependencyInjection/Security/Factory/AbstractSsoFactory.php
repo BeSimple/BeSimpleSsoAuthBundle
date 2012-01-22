@@ -12,6 +12,14 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 abstract class AbstractSsoFactory extends AbstractFactory
 {
+    public function __construct()
+    {
+        $this->addOption('create_users', false);
+        $this->addOption('created_users_roles', array('ROLE_USER'));
+        $this->addOption('login_action', 'BeSimpleSsoAuthBundle:TrustedSso:login');
+        $this->addOption('logout_action', 'BeSimpleSsoAuthBundle:TrustedSso:logout');
+    }
+
     public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPointId)
     {
         $this->createLogoutSuccessHandler($container, $config);
@@ -31,8 +39,8 @@ abstract class AbstractSsoFactory extends AbstractFactory
         $container
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.provider.sso'))
             ->replaceArgument(0, new Reference($userProviderId))
-            ->replaceArgument(2, $config['create_not_found_users'])
-            ->replaceArgument(3, $config['hide_user_not_found_exceptions'])
+            ->replaceArgument(2, $config['create_users'])
+            ->replaceArgument(3, $config['created_users_roles'])
         ;
 
         return $provider;

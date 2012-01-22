@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use BeSimple\SsoAuthBundle\Sso\Manager;
 use BeSimple\SsoAuthBundle\Security\Core\Authentication\Token\SsoToken;
 use BeSimple\SsoAuthBundle\Sso\ValidationInterface;
-use BeSimple\SsoAuthBundle\Sso\UserFactoryInterface;
+use BeSimple\SsoAuthBundle\Security\Core\User\UserFactoryInterface;
 
 class SsoAuthenticationProvider implements AuthenticationProviderInterface
 {
@@ -30,27 +30,36 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
     /**
      * @var bool
      */
-    private $createNotFoundUsers;
-    
+    private $createUsers;
+
+    /**
+     * @var array
+     */
+    private $createdUsersRoles;
+
     /**
      * @var bool
      */
-    private $hideUserNotFoundExceptions;
+    private $hideUserNotFound;
 
     /**
      * Constructor.
      *
      * @param \Symfony\Component\Security\Core\User\UserProviderInterface $userProvider
-     * @param \Symfony\Component\Security\Core\User\UserCheckerInterface  $userChecker
-     * @param bool                                                        $createNotFoundUsers
-     * @param bool                                                        $hideUserNotFoundExceptions
+     * @param \Symfony\Component\Security\Core\User\UserCheckerInterface $userChecker
+     * @param bool $createUsers
+     * @param array $assignRoles
+     * @param bool $hideUserNotFound
+     *
+     * @internal param bool $canCreateUser
      */
-    public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker, $createNotFoundUsers = true, $hideUserNotFoundExceptions = true)
+    public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker, $createUsers = false, array $createdUsersRoles = array('ROLE_USER'), $hideUserNotFound = true)
     {
-        $this->userProvider               = $userProvider;
-        $this->userChecker                = $userChecker;
-        $this->createNotFoundUsers        = $createNotFoundUsers;
-        $this->hideUserNotFoundExceptions = $hideUserNotFoundExceptions;
+        $this->userProvider      = $userProvider;
+        $this->userChecker       = $userChecker;
+        $this->createUsers       = $createUsers;
+        $this->createdUsersRoles = $createdUsersRoles;
+        $this->hideUserNotFound  = $hideUserNotFound;
     }
 
     /**
@@ -71,11 +80,14 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
             throw new BadCredentialsException('Authentication has not been validated by SSO provider.');
         }
 
-        $user = $this->provideUser($validation->getUsername(), $validation);
+        $user = $this->provideUser($validation->getUsername(), $validation->getAttributes());
         $this->userChecker->checkPreAuth($user);
         $this->userChecker->checkPostAuth($user);
 
-        return new SsoToken($token->getManager(), $token->getCredentials(), $user, $user->getRoles(), $validation->getAttributes());
+        $authenticatedToken = new SsoToken($token->getManager(), $token->getCredentials(), $user, $user->getRoles(), $validation->getAttributes());
+        $authenticatedToken->setAttributes($token->getAttributes());
+
+        return $authenticatedToken;
     }
 
     /**
@@ -91,17 +103,18 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
      * @throws \Symfony\Component\Security\Core\Exception\BadCredentialsException
      *
      * @param string $username
+     * @param array $attributes
      *
      * @return UserInterface
      */
-    protected function provideUser($username, ValidationInterface $validation)
+    protected function provideUser($username, array $attributes = array())
     {
         try {
             $user = $this->retrieveUser($username);
         } catch (UsernameNotFoundException $notFound) {
-            if ($this->createNotFoundUsers && $this->userProvider instanceof UserFactoryInterface) {
-                $user = $this->createUser($username, $validation->getAttributes());
-            } else if ($this->hideUserNotFoundExceptions) {
+            if ($this->createUsers && $this->userProvider instanceof UserFactoryInterface) {
+                $user = $this->createUser($username, $attributes);
+            } elseif ($this->hideUserNotFound) {
                 throw new BadCredentialsException('Bad credentials', 0, $notFound);
             } else {
                 throw $notFound;
@@ -134,23 +147,23 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
 
         return $user;
     }
-    
+
     /**
      * @throws AuthenticationServiceException
-     * 
+     *
      * @param string $username
      * @param array $attributes
-     * 
+     *
      * @return UserInterface
      */
-    protected function createUser($username, array $attributes)
+    protected function createUser($username, array $attributes = array())
     {
-        if (! $this->userProvider instanceof UserFactoryInterface) {
+        if (!$this->userProvider instanceof UserFactoryInterface) {
             throw new AuthenticationServiceException('UserProvider must implement UserFactoryInterface to create unknown users.');
         }
 
         try {
-            $user = $this->userProvider->createUser($username, $attributes);
+            $user = $this->userProvider->createUser($username, $this->createdUsersRoles, $attributes);
 
             if (!$user instanceof UserInterface) {
                 throw new AuthenticationServiceException('The user provider must create an UserInterface object.');

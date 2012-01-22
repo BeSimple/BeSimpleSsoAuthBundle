@@ -8,10 +8,10 @@ use Buzz\Message\Request;
 /**
  * @author: Jean-François Simon <contact@jfsimon.fr>
  */
-abstract class AbstractServer extends AbstractComponent
+abstract class AbstractServer extends AbstractComponent implements ServerInterface
 {
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getLoginUrl()
     {
@@ -19,7 +19,7 @@ abstract class AbstractServer extends AbstractComponent
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getLogoutUrl()
     {
@@ -27,7 +27,7 @@ abstract class AbstractServer extends AbstractComponent
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getValidationUrl()
     {
@@ -35,7 +35,7 @@ abstract class AbstractServer extends AbstractComponent
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getCheckUrl()
     {
