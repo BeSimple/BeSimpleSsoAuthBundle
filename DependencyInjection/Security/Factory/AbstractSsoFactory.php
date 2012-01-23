@@ -3,6 +3,7 @@
 namespace BeSimple\SsoAuthBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractFactory;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -46,6 +47,19 @@ abstract class AbstractSsoFactory extends AbstractFactory
         return $provider;
     }
 
+    public function addConfiguration(NodeDefinition $node)
+    {
+        parent::addConfiguration($node);
+
+        $node
+            ->children()
+                ->arrayNode('created_users_roles')
+                    ->prototype('scalar')->end()
+                ->end()
+            ->end()
+        ;
+    }
+    
     protected function createLogoutSuccessHandler(ContainerBuilder $container, $config)
     {
         $templateHandler = 'security.logout.sso.success_handler';
