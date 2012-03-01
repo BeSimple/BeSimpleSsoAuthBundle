@@ -44,9 +44,9 @@ class LoginTest extends WebTestCase
         $crawler = $client->click($crawler->filter('#url')->link());
         $this->assertEquals(ServerController::LOGOUT_MESSAGE, $crawler->filter('#message')->text());
 
-        // click link -> return to secured page anonymously
+        // click link -> go to homepage
         $crawler = $client->click($crawler->filter('#url')->link());
-        $this->assertEquals(TrustedSsoController::LOGIN_REQUIRED_MESSAGE, $crawler->filter('#message')->text());
+        $this->assertEquals(TestController::HOME_MESSAGE, $crawler->filter('#message')->text());
     }
 
     public function provideLoginData()

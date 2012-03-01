@@ -25,6 +25,10 @@ class CasController extends Controller
      */
     protected function getLogoutRedirectUrl(Request $request)
     {
+        if ($request->query->has('url')) {
+            return urldecode($request->query->get('url'));
+        }
+
         return urldecode($request->query->get('service'));
     }
 

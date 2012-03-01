@@ -1,3 +1,7 @@
+home:
+    pattern:  /home
+    defaults: { _controller: be_simple.sso_auth.test_controller.test:homeAction }
+
 anon:
     pattern:  /anon
     defaults: { _controller: be_simple.sso_auth.test_controller.test:anonAction }

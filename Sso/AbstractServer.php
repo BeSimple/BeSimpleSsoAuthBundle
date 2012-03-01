@@ -29,6 +29,14 @@ abstract class AbstractServer extends AbstractComponent implements ServerInterfa
     /**
      * {@inheritdoc}
      */
+    public function getLogoutTarget()
+    {
+        return $this->config['logout_target'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getValidationUrl()
     {
         return $this->config['validation_url'];

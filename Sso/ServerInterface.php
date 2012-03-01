@@ -25,6 +25,13 @@ interface ServerInterface extends ComponentInterface
     public function getLogoutUrl();
 
     /**
+     * Returns the URL to be redirected to after logout.
+     *
+     * @return string
+     */
+    public function getLogoutTarget();
+
+    /**
      * Returns the check URL.
      *
      * @return string

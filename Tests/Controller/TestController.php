@@ -4,12 +4,18 @@ namespace BeSimple\SsoAuthBundle\Tests\Controller;
 
 class TestController extends Controller
 {
+    const HOME_MESSAGE      = 'welcome home';
     const ANON_MESSAGE      = 'hello anon';
     const SECURED_MESSAGE   = 'hello secured';
     const USER_MESSAGE      = 'hello user';
     const ADMIN_MESSAGE     = 'hello admin';
     const FORBIDDEN_MESSAGE = 'access denied';
     const LOGIN_MESSAGE     = 'login required';
+
+    public function homeAction()
+    {
+        return $this->renderMessage(self::HOME_MESSAGE);
+    }
 
     public function anonAction()
     {

@@ -33,4 +33,5 @@ be_simple_sso_auth:
             id: cas
             login_url: /server/login
             logout_url: /server/logout
+            logout_target: /home
             validation_url: /server/validation
