@@ -9,7 +9,6 @@ class SsoToken extends AbstractToken
 {
     private $manager;
     private $credentials;
-    private $validationAttributes;
 
     /**
      * Constructor.
@@ -27,7 +26,8 @@ class SsoToken extends AbstractToken
 
         $this->manager              = $manager;
         $this->credentials          = $credentials;
-        $this->validationAttributes = $validationAttributes;
+
+        $this->setAttribute('sso:validation', $validationAttributes);
 
         if (!is_null($user)) {
             $this->setUser($user);
@@ -60,7 +60,11 @@ class SsoToken extends AbstractToken
 
     public function getValidationAttributes()
     {
-        return $this->validationAttributes;
+        if (!$this->hasAttribute('sso:validation')) {
+            return array();
+        }
+
+        return $this->getAttribute('sso:validation');
     }
 
     /**
