@@ -85,7 +85,12 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
         $this->userChecker->checkPostAuth($user);
 
         $authenticatedToken = new SsoToken($token->getManager(), $token->getCredentials(), $user, $user->getRoles(), $validation->getAttributes());
-        $authenticatedToken->setAttributes($token->getAttributes());
+        foreach ($token->getAttributes() as $name => $value) {
+            if ('sso:validation' == $name) {
+                continue;
+            }
+            $authenticatedToken->setAttribute($name, $value);
+        }
 
         return $authenticatedToken;
     }
