@@ -5,8 +5,8 @@ namespace BeSimple\SsoAuthBundle\Buzz;
 use Buzz\Client\ClientInterface;
 use Buzz\Client\Curl;
 use Buzz\Client\FileGetContents;
-use Buzz\Message\Request;
-use Buzz\Message\Response;
+use Buzz\Message\MessageInterface;
+use Buzz\Message\RequestInterface;
 
 /**
  * @author: Jean-François Simon <contact@jfsimon.fr>
@@ -20,7 +20,7 @@ class AdaptiveClient implements ClientInterface
         $this->client = function_exists('curl_init') ? new Curl() : new FileGetContents();
     }
 
-    public function send(Request $request, Response $response)
+    public function send(RequestInterface $request, MessageInterface $response)
     {
         $this->client->send($request, $response);
     }
