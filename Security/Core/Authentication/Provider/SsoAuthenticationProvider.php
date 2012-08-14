@@ -48,7 +48,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
      * @param \Symfony\Component\Security\Core\User\UserProviderInterface $userProvider
      * @param \Symfony\Component\Security\Core\User\UserCheckerInterface $userChecker
      * @param bool $createUsers
-     * @param array $assignRoles
+     * @param array $createdUsersRoles
      * @param bool $hideUserNotFound
      *
      * @internal param bool $canCreateUser

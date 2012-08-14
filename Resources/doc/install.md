@@ -67,7 +67,7 @@ Add bundle & Buzz library to your autoload file:
     ));
 
 
-Add the factories to your secutity config:
+Add the factories to your security config:
 
     # app/config/security.yml
     security:
@@ -81,6 +81,6 @@ Run the tests
 -------------
 
 
-From your project root dicrectory:
+From your project root directory:
 
     phpunit -c app vendor/bundles/BeSimple/SsoAuthBundle/Tests

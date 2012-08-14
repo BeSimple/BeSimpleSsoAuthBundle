@@ -39,7 +39,6 @@ class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
 
     /**
      * @param Request $request
-     * @param null|AuthenticationException $authException
      *
      * @return Response
      */

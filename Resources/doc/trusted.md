@@ -11,7 +11,7 @@ Firewall configuration
 BeSimpleSsoAuthBundle adds 3 configuration entries to standard (form_login) firewall wich are:
 
 -   `manager`: name of the manager configured under `be_simple_sso_auth` config section (see below).
--   `login_action`: when login required, user is forwarded to this action (wich by default tell him to
+-   `login_action`: when login required, user is forwarded to this action (which by default tell him to
     follow given link to authenticate). Set to `false` to auto-redirect user to SSO login form.
 -   `logout_action`: same as `login_action`, but for logout.
 -   `create_users`: authorize user provider to create not found users if implementing UserFactoryInterface.

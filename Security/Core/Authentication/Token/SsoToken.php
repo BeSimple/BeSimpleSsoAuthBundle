@@ -13,10 +13,11 @@ class SsoToken extends AbstractToken
     /**
      * Constructor.
      *
-     * @param Manager $manager     The SSO manager
-     * @param string  $credentials The SSO token
-     * @param string  $user        The username
-     * @param array   $roles       An array of roles
+     * @param Manager $manager              The SSO manager
+     * @param string  $credentials          The SSO token
+     * @param string  $user                 The username
+     * @param array   $roles                An array of roles
+     * @param array   $validationAttributes An array of attributes
      *
      * @throws \InvalidArgumentException
      */

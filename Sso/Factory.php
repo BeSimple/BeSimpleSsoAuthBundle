@@ -41,6 +41,7 @@ class Factory
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Buzz\Client\ClientInterface $client
      */
     public function __construct(ContainerInterface $container, ClientInterface $client)
     {
