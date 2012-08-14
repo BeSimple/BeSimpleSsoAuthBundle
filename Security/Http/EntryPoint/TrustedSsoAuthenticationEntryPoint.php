@@ -29,7 +29,7 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
     /**
      * @param HttpKernel $httpKernel
      * @param SsoProviderFactory $ssoFactory
-     * @param array $ssoConfig
+     * @param array $config
      */
     public function __construct(HttpKernel $httpKernel, Factory $factory, array $config)
     {

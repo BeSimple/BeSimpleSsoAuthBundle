@@ -9,7 +9,7 @@ class CasController extends Controller
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $credentials
+     * @param Login $login
      * @return string
      */
     protected function getLoginRedirectUrl(Request $request, Login $login)
@@ -43,7 +43,7 @@ class CasController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $view
+     * @param string $name
      * @return string
      */
     protected function getValidationView(Request $request, $name)

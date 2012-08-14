@@ -65,7 +65,7 @@ abstract class AbstractSsoFactory extends AbstractFactory
         $templateHandler = 'security.logout.sso.success_handler';
         $realHandler     = 'security.logout.success_handler';
 
-        // dont know if this is the right way, but it works
+        // don't know if this is the right way, but it works
         $container
             ->setDefinition($realHandler, new DefinitionDecorator($templateHandler))
             ->addArgument($config)

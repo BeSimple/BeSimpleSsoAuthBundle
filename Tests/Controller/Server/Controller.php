@@ -34,7 +34,6 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * @param string $credentials
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function validationAction()
@@ -74,7 +73,7 @@ abstract class Controller extends BaseController
     /**
      * @abstract
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $credentials
+     * @param Login $login
      * @return string
      */
     abstract protected function getLoginRedirectUrl(Request $request, Login $login);
