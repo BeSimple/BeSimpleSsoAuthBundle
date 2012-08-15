@@ -2,7 +2,7 @@ SSO authentication for Symfony2
 ===============================
 
 
-This bundle helps you to bring SSO authentication to yous Symfony2 project.
+This bundle helps you to bring SSO authentication to your Symfony2 project.
 
 
 It works in two ways:
