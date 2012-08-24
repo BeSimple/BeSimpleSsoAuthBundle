@@ -3,8 +3,8 @@
 namespace BeSimple\SsoAuthBundle\Tests;
 
 use Buzz\Client\ClientInterface;
-use Buzz\Message\Request as BuzzRequest;
-use Buzz\Message\Response as BuzzResponse;
+use Buzz\Message\RequestInterface as BuzzRequest;
+use Buzz\Message\MessageInterface as BuzzResponse;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
