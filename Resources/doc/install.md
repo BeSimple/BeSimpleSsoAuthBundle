@@ -52,7 +52,7 @@ Add bundle to your kernel class:
 
 Add bundle to your config file:
 
-    # app/config.yml
+    # app/config/config.yml
     be_simple_sso_auth: ~
 
 
