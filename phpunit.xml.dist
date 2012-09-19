@@ -27,9 +27,9 @@
         <whitelist>
             <directory>.</directory>
             <exclude>
-                <directory>Controller</directory>
-                <directory>Form</directory>
                 <directory>Resources</directory>
+                <directory>Tests</directory>
+                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>
