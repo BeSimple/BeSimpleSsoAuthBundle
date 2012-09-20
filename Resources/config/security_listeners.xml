@@ -35,17 +35,7 @@
             <!-- $ssoProviderFactoryConfig -->
         </service>
 
-        <service id="security.authentication.listener.trusted_sso" class="%security.authentication.listener.trusted_sso.class%" abstract="true" public="false">
-            <argument type="service" id="security.context" />
-            <argument type="service" id="security.authentication.manager" />
-            <argument type="service" id="security.authentication.session_strategy" />
-            <argument type="service" id="security.http_utils" />
-            <argument /><!-- $providerKey -->
-            <argument type="collection" /><!-- $options = array() -->
-            <argument type="service" id="security.authentication.success_handler" on-invalid="null" />
-            <argument type="service" id="security.authentication.failure_handler" on-invalid="null" />
-            <argument type="service" id="logger" on-invalid="null" />
-            <argument type="service" id="event_dispatcher" on-invalid="null"/>
+        <service id="security.authentication.listener.trusted_sso" class="%security.authentication.listener.trusted_sso.class%" abstract="true" public="false" parent="security.authentication.listener.abstract">
             <tag name="monolog.logger" channel="security" />
             <call method="setFactory">
                 <argument type="service" id="be_simple.sso_auth.factory" />
