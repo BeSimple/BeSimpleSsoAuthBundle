@@ -20,10 +20,8 @@ class BeSimpleSsoAuthBundle extends Bundle
     {
         parent::build($container);
 
-        if (Kernel::VERSION_ID >= 20100) {
-            $ext = $container->getExtension('security');
-            $ext->addSecurityListenerFactory(new TrustedSsoFactory());
-        }
+        $ext = $container->getExtension('security');
+        $ext->addSecurityListenerFactory(new TrustedSsoFactory());
 
         $container->addCompilerPass(new FactoryPass());
     }
