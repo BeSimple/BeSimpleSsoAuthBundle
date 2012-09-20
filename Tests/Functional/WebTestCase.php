@@ -22,13 +22,14 @@ abstract class WebTestCase extends BaseWebTestCase
 
     public function provideClients()
     {
-        $clients = array();
+        return array(
+            array('cas')
+        );
+    }
 
-        foreach (array('cas') as $name) {
-            $clients[] = array(static::createClient(array('sso_server_name' => $name)));
-        }
-
-        return $clients;
+    protected function createSsoClient($name)
+    {
+        return static::createClient(array('sso_server_name' => $name));
     }
 
     protected function getXml(Crawler $crawler)

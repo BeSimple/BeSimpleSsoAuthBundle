@@ -12,8 +12,9 @@ class LoginTest extends WebTestCase
     /**
      * @dataProvider provideLoginData
      */
-    public function testLogin(Client $client, $securedUrl, $login, $expectedMessage)
+    public function testLogin($clientName, $securedUrl, $login, $expectedMessage)
     {
+        $client = $this->createSsoClient($clientName);
         // client follow redirects
         $client->followRedirects();
 
