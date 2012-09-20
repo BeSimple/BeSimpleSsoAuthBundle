@@ -1,5 +1,4 @@
 framework:
-    charset:       UTF-8
     secret:        test
     csrf_protection:
         enabled: true
@@ -9,7 +8,6 @@ framework:
     test: ~
     session:
         lifetime:       3600
-        auto_start:     true
         storage_id:     session.storage.filesystem
 
 services:
@@ -29,8 +27,6 @@ twig:
     strict_variables: %kernel.debug%
 
 security:
-    factories:
-        - "%kernel.root_dir%/../Resources/config/security_factories.xml"
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
     role_hierarchy:
@@ -38,9 +34,10 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     providers:
         in_memory:
-            users:
-                "user":  { password: user,  roles: ["ROLE_USER"] }
-                "admin": { password: admin, roles: ["ROLE_ADMIN"] }
+            memory:
+                users:
+                    "user":  { password: user,  roles: ["ROLE_USER"] }
+                    "admin": { password: admin, roles: ["ROLE_ADMIN"] }
     access_control:
         - { path: ^/secured/user,  roles: ROLE_USER }
         - { path: ^/secured/admin, roles: ROLE_ADMIN }
