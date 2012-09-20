@@ -48,7 +48,7 @@ class CasController extends Controller
      */
     protected function getValidationView(Request $request, $name)
     {
-        return $request->attributes->get('version') === 2
+        return 2 === (int) $request->attributes->get('version')
             ? sprintf('cas/%s_v2.xml.twig', $name)
             : sprintf('cas/%s_v1.txt.twig', $name);
     }
