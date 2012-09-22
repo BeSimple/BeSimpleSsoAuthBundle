@@ -3,7 +3,7 @@
 namespace BeSimple\SsoAuthBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
-use Symfony\Component\HttpKernel\Util\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\DomCrawler\Crawler;
 use BeSimple\SsoAuthBundle\Tests\AppKernel;
 use BeSimple\SsoAuthBundle\Tests\HttpClient;

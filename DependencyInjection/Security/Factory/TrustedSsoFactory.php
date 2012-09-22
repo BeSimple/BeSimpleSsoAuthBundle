@@ -38,28 +38,4 @@ class TrustedSsoFactory extends AbstractSsoFactory
 
         return $entryPointId;
     }
-
-    protected function createListener($container, $id, $config, $userProvider)
-    {
-        $listenerId = $this->getListenerId();
-        $listener   = new DefinitionDecorator($listenerId);
-
-        $listener->replaceArgument(4, $id);
-        $listener->replaceArgument(6, array_intersect_key($config, $this->options));
-
-        // success handler
-        if (isset($config['success_handler'])) {
-            $listener->replaceArgument(7, new Reference($config['success_handler']));
-        }
-
-        // failure handler
-        if (isset($config['failure_handler'])) {
-            $listener->replaceArgument(8, new Reference($config['failure_handler']));
-        }
-
-        $listenerId .= '.'.$id;
-        $container->setDefinition($listenerId, $listener);
-
-        return $listenerId;
-    }
 }

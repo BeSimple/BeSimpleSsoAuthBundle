@@ -8,7 +8,7 @@ Firewall configuration
 
 **Config entries:**
 
-BeSimpleSsoAuthBundle adds 3 configuration entries to standard (form_login) firewall wich are:
+BeSimpleSsoAuthBundle adds 5 configuration entries to standard (form_login) firewall which are:
 
 -   `manager`: name of the manager configured under `be_simple_sso_auth` config section (see below).
 -   `login_action`: when login required, user is forwarded to this action (which by default tell him to

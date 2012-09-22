@@ -13,7 +13,7 @@
     </parameters>
 
     <services>
-        <service id="security.authentication.trusted_sso_entry_point" class="%security.authentication.trusted_sso_entry_point.class%" public="false">
+        <service id="security.authentication.trusted_sso_entry_point" class="%security.authentication.trusted_sso_entry_point.class%" abstract="true" public="false">
             <argument type="service" id="http_kernel" />
             <argument type="service" id="be_simple.sso_auth.factory" />
             <!-- $ssoProviderFactoryConfig -->
@@ -29,25 +29,17 @@
 
         <service id="security.logout.handler.sso" class="%security.logout.handler.sso.class%" public="false" />
 
-        <service id="security.logout.sso.success_handler" class="%security.logout.sso_success_handler.class%">
+        <service id="security.logout.sso.success_handler" class="%security.logout.sso_success_handler.class%" abstract="true">
             <argument type="service" id="http_kernel" />
             <argument type="service" id="be_simple.sso_auth.factory" />
             <!-- $ssoProviderFactoryConfig -->
         </service>
 
-        <service id="security.authentication.listener.trusted_sso" class="%security.authentication.listener.trusted_sso.class%" public="false">
-            <argument type="service" id="security.context" />
-            <argument type="service" id="security.authentication.manager" />
-            <argument type="service" id="security.authentication.session_strategy" />
-            <argument type="service" id="security.http_utils" />
-            <argument /><!-- $providerKey -->
-            <argument type="service" id="be_simple.sso_auth.factory" />
-            <argument type="collection" /><!-- $options = array() -->
-            <argument type="service" id="security.authentication.success_handler" on-invalid="null" />
-            <argument type="service" id="security.authentication.failure_handler" on-invalid="null" />
-            <argument type="service" id="logger" on-invalid="null" />
-            <argument type="service" id="event_dispatcher" on-invalid="null"/>
+        <service id="security.authentication.listener.trusted_sso" class="%security.authentication.listener.trusted_sso.class%" abstract="true" public="false" parent="security.authentication.listener.abstract">
             <tag name="monolog.logger" channel="security" />
+            <call method="setFactory">
+                <argument type="service" id="be_simple.sso_auth.factory" />
+            </call>
         </service>
     </services>
 </container>

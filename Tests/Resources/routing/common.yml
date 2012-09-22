@@ -10,6 +10,9 @@ secured:
     pattern:  /secured
     defaults: { _controller: be_simple.sso_auth.test_controller.test:securedAction }
 
+secured_check:
+    pattern:  /secured/check
+
 secured_user:
     pattern:  /secured/user
     defaults: { _controller: be_simple.sso_auth.test_controller.test:userAction }

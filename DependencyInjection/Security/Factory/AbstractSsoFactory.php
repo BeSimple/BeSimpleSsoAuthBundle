@@ -23,7 +23,7 @@ abstract class AbstractSsoFactory extends AbstractFactory
 
     public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPointId)
     {
-        $this->createLogoutSuccessHandler($container, $config);
+        $this->createLogoutSuccessHandler($container, $id, $config);
 
         return parent::create($container, $id, $config, $userProviderId, $defaultEntryPointId);
     }
@@ -59,15 +59,15 @@ abstract class AbstractSsoFactory extends AbstractFactory
             ->end()
         ;
     }
-    
-    protected function createLogoutSuccessHandler(ContainerBuilder $container, $config)
+
+    protected function createLogoutSuccessHandler(ContainerBuilder $container, $id, $config)
     {
         $templateHandler = 'security.logout.sso.success_handler';
         $realHandler     = 'security.logout.success_handler';
 
         // don't know if this is the right way, but it works
         $container
-            ->setDefinition($realHandler, new DefinitionDecorator($templateHandler))
+            ->setDefinition($realHandler.'.'.$id, new DefinitionDecorator($templateHandler))
             ->addArgument($config)
         ;
     }

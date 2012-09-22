@@ -22,7 +22,7 @@ abstract class Controller extends BaseController
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+            $form->bind($request);
 
             return new RedirectResponse($this->getLoginRedirectUrl($request, $form->getData()));
         }
