@@ -12,37 +12,38 @@ class AnonTest extends WebTestCase
     /**
      * @dataProvider provideClients
      */
-    public function testAnon(Client $client)
+    public function testAnon($clientName)
     {
-        $this->processTest($client, '/anon', TestController::ANON_MESSAGE);
+        $this->processTest($clientName, '/anon', TestController::ANON_MESSAGE);
     }
 
     /**
      * @dataProvider provideClients
      */
-    public function testSecured(Client $client)
+    public function testSecured($clientName)
     {
-        $this->processTest($client, '/secured', TrustedSsoController::LOGIN_REQUIRED_MESSAGE);
+        $this->processTest($clientName, '/secured', TrustedSsoController::LOGIN_REQUIRED_MESSAGE);
     }
 
     /**
      * @dataProvider provideClients
      */
-    public function testUser(Client $client)
+    public function testUser($clientName)
     {
-        $this->processTest($client, '/secured/user', TrustedSsoController::LOGIN_REQUIRED_MESSAGE);
+        $this->processTest($clientName, '/secured/user', TrustedSsoController::LOGIN_REQUIRED_MESSAGE);
     }
 
     /**
      * @dataProvider provideClients
      */
-    public function testAdmin(Client $client)
+    public function testAdmin($clientName)
     {
-        $this->processTest($client, '/secured/admin', TrustedSsoController::LOGIN_REQUIRED_MESSAGE);
+        $this->processTest($clientName, '/secured/admin', TrustedSsoController::LOGIN_REQUIRED_MESSAGE);
     }
 
-    private function processTest(Client $client, $url, $expectedMessage)
+    private function processTest($clientName, $url, $expectedMessage)
     {
+        $client = $this->createSsoClient($clientName);
         $crawler = $client->request('GET', $url);
         $message = $crawler->filter('#message')->text();
         $this->assertEquals($expectedMessage, $message);
