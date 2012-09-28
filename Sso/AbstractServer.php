@@ -15,7 +15,7 @@ abstract class AbstractServer extends AbstractComponent implements ServerInterfa
      */
     public function getLoginUrl()
     {
-        return $this->config['login_url'];
+        return $this->getConfigValue('login_url');
     }
 
     /**
@@ -23,7 +23,7 @@ abstract class AbstractServer extends AbstractComponent implements ServerInterfa
      */
     public function getLogoutUrl()
     {
-        return $this->config['logout_url'];
+        return $this->getConfigValue('logout_url');
     }
 
     /**
@@ -31,7 +31,7 @@ abstract class AbstractServer extends AbstractComponent implements ServerInterfa
      */
     public function getLogoutTarget()
     {
-        return $this->config['logout_target'];
+        return $this->getConfigValue('logout_target');
     }
 
     /**
@@ -39,7 +39,7 @@ abstract class AbstractServer extends AbstractComponent implements ServerInterfa
      */
     public function getValidationUrl()
     {
-        return $this->config['validation_url'];
+        return $this->getConfigValue('validation_url');
     }
 
     /**
@@ -47,6 +47,6 @@ abstract class AbstractServer extends AbstractComponent implements ServerInterfa
      */
     public function getCheckUrl()
     {
-        return $this->config['check_url'];
+        return $this->getConfigValue('check_url');
     }
 }
