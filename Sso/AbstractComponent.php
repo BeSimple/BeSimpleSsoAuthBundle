@@ -43,4 +43,15 @@ abstract class AbstractComponent implements ComponentInterface
 
         return $this;
     }
+
+    /**
+     * Returns a configuration value
+     *
+     * @param $name
+     * @return string|null
+     */
+    public function getConfigValue($name)
+    {
+        return array_key_exists($name, $this->config) ? $this->config[$name] : null;
+    }
 }

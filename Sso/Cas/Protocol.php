@@ -39,7 +39,7 @@ class Protocol extends AbstractProtocol
         $response = new BuzzResponse();
         $client->send($request, $response);
 
-        switch ($this->config['version']) {
+        switch ($this->getConfigValue('version')) {
             case 1: return new PlainValidation($response, $credentials);
             case 2: return new XmlValidation($response, $credentials);
         }

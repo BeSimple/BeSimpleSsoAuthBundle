@@ -24,7 +24,10 @@ class Server extends AbstractServer
      */
     public function getLogoutUrl()
     {
-        return sprintf('%s?service=%s&url=%s', parent::getLogoutUrl(), urlencode($this->getCheckUrl()), urlencode($this->getLogoutTarget()));
+        $service = sprintf('service=%s', urlencode($this->getCheckUrl()));
+        $url = $this->getLogoutTarget() ? sprintf('&url=%s', urlencode($this->getLogoutTarget())) : null;
+
+        return sprintf('%s?%s%s', parent::getLogoutUrl(), $service, $url);
     }
 
     /**
