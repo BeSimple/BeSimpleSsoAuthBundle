@@ -34,5 +34,10 @@
     "autoload": {
         "psr-0": { "BeSimple\\SsoAuthBundle": "" }
     },
-    "target-dir": "BeSimple/SsoAuthBundle"
+    "target-dir": "BeSimple/SsoAuthBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
