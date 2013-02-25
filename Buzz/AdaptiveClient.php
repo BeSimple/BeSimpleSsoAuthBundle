@@ -14,14 +14,16 @@ use Buzz\Message\RequestInterface;
 class AdaptiveClient implements ClientInterface
 {
     private $client;
+    private $options;
 
-    public function __construct()
+    public function __construct(array $options = array())
     {
+        $this->options = $options;
         $this->client = function_exists('curl_init') ? new Curl() : new FileGetContents();
     }
 
     public function send(RequestInterface $request, MessageInterface $response)
     {
-        $this->client->send($request, $response);
+        $this->client->send($request, $response, $this->options);
     }
 }
