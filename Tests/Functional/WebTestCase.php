@@ -41,7 +41,7 @@ abstract class WebTestCase extends BaseWebTestCase
         return html_entity_decode($document->saveXML());
     }
 
-    static protected function createKernel(array $options)
+    static protected function createKernel(array $options = array())
     {
         static::$tmpPath    = sys_get_temp_dir().'/be_simple_sso_auth_bundle_tests';
         static::$configFile = __DIR__.'/../Resources/config/'.$options['sso_server_name'].'.yml';
