@@ -7,10 +7,15 @@
     <parameters>
         <parameter key="be_simple.sso_auth.factory.class">BeSimple\SsoAuthBundle\Sso\Factory</parameter>
         <parameter key="be_simple.sso_auth.client.class">BeSimple\SsoAuthBundle\Buzz\AdaptiveClient</parameter>
+        <parameter key="be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.key">64</parameter>
+        <parameter key="be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value">TRUE</parameter>
     </parameters>
 
     <services>
         <service id="be_simple.sso_auth.client" class="%be_simple.sso_auth.client.class%">
+            <argument type="collection">
+                <argument key="%be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.key%">%be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value%</argument>
+            </argument>
         </service>
 
         <service id="be_simple.sso_auth.factory" class="%be_simple.sso_auth.factory.class%">
