@@ -22,4 +22,4 @@ Some notes
 ----------
 
 -   [Some SSO protocols](protocols.md)
--   [Example (example.md)
+-   [Example] (example.md)
