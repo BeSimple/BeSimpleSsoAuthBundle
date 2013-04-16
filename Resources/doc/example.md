@@ -71,4 +71,5 @@ If necessary, you can disable SSL Certificat Verification
 ---------------------------------------------------------
 
 Add in parameters.ini : 
-	be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value: FALSE
+
+    	be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value: FALSE
