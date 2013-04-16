@@ -10,16 +10,17 @@ Configure SSO
 
 In config.yml:
 
-be_simple_sso_auth:
-    admin_sso:
-        protocol:
-            id: cas
-            version: 2
-        server:
-            id: cas
-            login_url: https://cas.server.tld/login
-            logout_url: https://cas.server.tld/logout
-            validation_url: https://cas.server.tld/serviceValidate
+        be_simple_sso_auth:
+            admin_sso:
+                protocol:
+                    id: cas
+                    version: 2
+                server:
+                    id: cas
+                    login_url: https://cas.server.tld/login
+                    logout_url: https://cas.server.tld/logout
+                    validation_url: https://cas.server.tld/serviceValidate
+
 
 
 Create a firewall
@@ -45,11 +46,11 @@ Create all routes (mandatory even if there is no controller)
 
 In routing.yml :
 
-login:
-    pattern: /login
+    login:
+        pattern: /login
   
-logout:
-    pattern: /logout
+    logout:
+        pattern: /logout
       
 
 Providers 
