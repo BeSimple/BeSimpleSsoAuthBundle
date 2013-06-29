@@ -1,7 +1,7 @@
 Authentication through SSO CAS Server with Symfony2
 ===================================================
 
-- use the Bundle : BeSimpleSsoAuthBundle (instal with Composer)
+- use the Bundle : BeSimpleSsoAuthBundle (install with Composer)
 - be careful on dependences : Buzz needs a recent version of libcurl (7.19 ??)
 
 
@@ -67,7 +67,7 @@ Example with Propel:
 The propel User Class must implement \Symfony\Component\Security\Core\User\UserInterface
 
 
-If necessary, you can disable SSL Certificat Verification
+If necessary, you can disable SSL Certificate Verification
 ---------------------------------------------------------
 
 Add in parameters.ini : 
