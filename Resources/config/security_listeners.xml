@@ -10,6 +10,8 @@
         <parameter key="security.authentication.listener.trusted_sso.class">BeSimple\SsoAuthBundle\Security\Http\Firewall\TrustedSsoAuthenticationListener</parameter>
         <parameter key="security.logout.handler.sso.class">BeSimple\SsoAuthBundle\Security\Http\Logout\SsoLogoutHandler</parameter>
         <parameter key="security.logout.sso_success_handler.class">BeSimple\SsoAuthBundle\Security\Http\Logout\SsoLogoutSuccessHandler</parameter>
+        <parameter key="security.authentication.sso_authentication_failure_handler.class">BeSimple\SsoAuthBundle\Security\Http\Authentication\SsoAuthenticationFailureHandler</parameter>
+        <parameter key="security.authentication.hide_user_not_found">FALSE</parameter>
     </parameters>
 
     <services>
@@ -40,6 +42,10 @@
             <call method="setFactory">
                 <argument type="service" id="be_simple.sso_auth.factory" />
             </call>
+        </service>
+
+        <service id="security.authentication.sso.authentication_failure_handler" class="%security.authentication.sso_authentication_failure_handler.class%" abstract="false">
+            <argument type="service" id="templating" />
         </service>
     </services>
 </container>

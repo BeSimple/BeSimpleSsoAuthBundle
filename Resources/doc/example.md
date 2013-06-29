@@ -1,7 +1,7 @@
 Authentication through SSO CAS Server with Symfony2
 ===================================================
 
-- use the Bundle : BeSimpleSsoAuthBundle (instal with Composer)
+- use the Bundle : BeSimpleSsoAuthBundle (install with Composer)
 - be careful on dependences : Buzz needs a recent version of libcurl (7.19 ??)
 
 
@@ -26,29 +26,25 @@ In config.yml:
 Create a firewall
 -----------------
 
-In security.yml:
-	
-        my_firewall:
-            pattern: ^/
-            anonymous: ~
-            trusted_sso:
-                manager: admin_sso
-
-                login_action: false 		# BeSimpleSsoAuthBundle:TrustedSso:login
-                logout_action: false 		# BeSimpleSsoAuthBundle:TrustedSso:logout
-                create_users: true
-                created_users_roles: [ROLE_USER ]
-                check_path: /
+    # app/config/security.yml
+    my_firewall:
+        pattern: ^/
+        anonymous: ~
+        trusted_sso:
+            manager: admin_sso
+            login_action: false 		# BeSimpleSsoAuthBundle:TrustedSso:login
+            logout_action: false 		# BeSimpleSsoAuthBundle:TrustedSso:logout
+            create_users: true
+            created_users_roles: [ROLE_USER ]
+            check_path: /
 
 
 Create all routes (mandatory even if there is no controller)
 ------------------------------------------------------------
 
-In routing.yml :
-
+    # app/config/routing.yml
     login:
         pattern: /login
-  
     logout:
         pattern: /logout
       
@@ -60,16 +56,23 @@ Example with Propel:
 
     providers:
         administrators:
-            propel: 
-              class: Altern\CdtBundle\Model\User
-              property: username 
-			  
+            propel:
+                class: Altern\CdtBundle\Model\User
+                property: username
+
 The propel User Class must implement \Symfony\Component\Security\Core\User\UserInterface
 
+Customize the "Username does not exist" error page
+--------------------------------------------------
 
-If necessary, you can disable SSL Certificat Verification
----------------------------------------------------------
+When a user successfully authenticates, but is not in the user provider's data store (or a user provider is not configured at all),
+then a generic error page is shown indicating that the user was not found. You can customize this error page by overriding the Twig error template,
+as described here: http://symfony.com/doc/current/cookbook/controller/error_pages.html
 
-Add in parameters.ini : 
+If necessary, you can disable SSL Certificate Verification
+----------------------------------------------------------
 
-    	be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value: FALSE
+This is handy when using a development server that does not have a valid certificate, but it should not be done in production.
+
+    # app/config/parameters.yml
+    be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value: FALSE
