@@ -14,7 +14,8 @@ class SsoAuthenticationFailureHandler implements AuthenticationFailureHandlerInt
     /**
      * @param $templating Templating service for rendering responses.
      */
-    public function __construct($templating) {
+    public function __construct($templating)
+    {
         $this->templating = $templating;
     }
 
