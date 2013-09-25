@@ -174,7 +174,7 @@ class SsoAuthenticationProvider implements AuthenticationProviderInterface
                 throw new AuthenticationServiceException('The user provider must create an UserInterface object.');
             }
         } catch (\Exception $repositoryProblem) {
-            throw new AuthenticationServiceException($repositoryProblem->getMessage(), $username, 0, $repositoryProblem);
+            throw new AuthenticationServiceException($repositoryProblem->getMessage(), 0, $repositoryProblem);
         }
 
         return $user;
