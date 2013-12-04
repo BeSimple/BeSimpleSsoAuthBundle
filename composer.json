@@ -18,18 +18,18 @@
     "require": {
         "php": ">=5.3.3",
         "kriswallsmith/buzz": ">=0.7,<1.0-dev",
-        "symfony/framework-bundle": ">=2.1,<2.4-dev",
-        "symfony/twig-bundle": ">=2.1,<2.4-dev",
-        "symfony/security-bundle": ">=2.1,<2.4-dev"
+        "symfony/framework-bundle": "~2.1",
+        "symfony/twig-bundle": "~2.1",
+        "symfony/security-bundle": "~2.1"
     },
     "require-dev": {
-        "symfony/browser-kit": ">=2.1,<2.4-dev",
-        "symfony/css-selector": ">=2.1,<2.4-dev",
-        "symfony/filesystem": ">=2.1,<2.4-dev",
-        "symfony/form": ">=2.1,<2.4-dev",
-        "symfony/validator": ">=2.1,<2.4-dev",
-        "symfony/web-profiler-bundle": ">=2.1,<2.4-dev",
-        "symfony/yaml": ">=2.1,<2.4-dev"
+        "symfony/browser-kit": "~2.1",
+        "symfony/css-selector": "~2.1",
+        "symfony/filesystem": "~2.1",
+        "symfony/form": "~2.1",
+        "symfony/validator": "~2.1",
+        "symfony/web-profiler-bundle": "~2.1",
+        "symfony/yaml": "~2.1"
     },
     "autoload": {
         "psr-0": { "BeSimple\\SsoAuthBundle": "" }
