@@ -29,7 +29,8 @@
         "symfony/form": "~2.1",
         "symfony/validator": "~2.1",
         "symfony/web-profiler-bundle": "~2.1",
-        "symfony/yaml": "~2.1"
+        "symfony/yaml": "~2.1",
+        "symfony/expression-language": "~2.4"
     },
     "autoload": {
         "psr-0": { "BeSimple\\SsoAuthBundle": "" }

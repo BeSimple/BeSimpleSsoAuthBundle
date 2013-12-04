@@ -7,7 +7,7 @@ framework:
     form: ~
     test: ~
     session:
-        lifetime:       3600
+        cookie_lifetime:       3600
         storage_id:     session.storage.filesystem
 
 services:
@@ -25,6 +25,8 @@ services:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    paths:
+        - %kernel.root_dir%/Resources/views
 
 security:
     encoders:
