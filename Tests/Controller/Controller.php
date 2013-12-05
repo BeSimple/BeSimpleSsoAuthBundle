@@ -22,8 +22,7 @@ abstract class Controller
      */
     protected function render($view, array $parameters = array())
     {
-        $path      = realpath(sprintf(__DIR__.'/../Resources/views/%s', $view));
-        $reference = new TemplateReference($path, 'twig');
+        $reference = new TemplateReference($view, 'twig');
         
         return new Response($this->container->get('templating')->render($reference, $parameters));
     }
