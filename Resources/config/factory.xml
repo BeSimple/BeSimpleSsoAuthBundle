@@ -9,12 +9,15 @@
         <parameter key="be_simple.sso_auth.client.class">BeSimple\SsoAuthBundle\Buzz\AdaptiveClient</parameter>
         <parameter key="be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.key">64</parameter>
         <parameter key="be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value">TRUE</parameter>
+		<parameter key="be_simple.sso_auth.client.option.curlopt_sslversion.key">32</parameter>
+        <parameter key="be_simple.sso_auth.client.option.curlopt_sslversion.value">3</parameter>
     </parameters>
 
     <services>
         <service id="be_simple.sso_auth.client" class="%be_simple.sso_auth.client.class%">
             <argument type="collection">
                 <argument key="%be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.key%">%be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value%</argument>
+				<argument key="%be_simple.sso_auth.client.option.curlopt_sslversion.key%">%be_simple.sso_auth.client.option.curlopt_sslversion.value%</argument>
             </argument>
         </service>
 
