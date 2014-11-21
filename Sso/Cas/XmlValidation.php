@@ -43,18 +43,16 @@ class XmlValidation extends AbstractValidation implements ValidationInterface
 
                         case 'cas:attributes':
                             foreach($child->childNodes as $attr) {
-                                if ($attr->nodeName != '#text') {
+                                if ($attr->nodeName == 'cas:attribute') {
+                                    $this->getCasAttributes($attr);
+                                } else if ($attr->nodeName != '#text') {
                                     $this->attributes[$attr->nodeName] = $attr->textContent;
                                 }
                             }
                             break;
 
                         case 'cas:attribute':
-                            $name = $child->attributes->getNamedItem('name')->value;
-                            $value = $child->attributes->getNamedItem('value')->value;
-                            if ($name && $value) {
-                                $this->attributes[$name] = $value;
-                            }
+                            $this->getCasAttributes($child);
                             break;
 
                         case '#text':
@@ -74,5 +72,17 @@ class XmlValidation extends AbstractValidation implements ValidationInterface
         }
 
         return $success;
+    }
+
+    /**
+     * @param \DOMElement $node
+     */
+    protected function getCasAttributes(\DOMElement $node)
+    {
+        $name = $node->attributes->getNamedItem('name')->value;
+        $value = $node->attributes->getNamedItem('value')->value;
+        if ($name && $value) {
+            $this->attributes[$name] = $value;
+        }
     }
 }
