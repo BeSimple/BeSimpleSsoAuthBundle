@@ -85,7 +85,7 @@ class SsoToken extends AbstractToken
 
     public function unserialize($str)
     {
-        list($this->credentials, $this->provider, $parentStr) = unserialize($str);
+        list($this->credentials, $this->manager, $parentStr) = unserialize($str);
         parent::unserialize($parentStr);
     }
 }
