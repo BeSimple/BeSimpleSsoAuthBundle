@@ -12,7 +12,7 @@ Add the requirement in your `composer.json` file:
 
     {
         "require": {
-            "besimple/sso-auth-bundle": "*"
+            "besimple/sso-auth-bundle": "@dev"
         }
     }
 
