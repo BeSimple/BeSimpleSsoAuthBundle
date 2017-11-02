@@ -102,7 +102,9 @@ class Factory
         }
 
         $config = $this->container->getParameter($parameter);
-        $config['server']['check_url'] = $checkUrl;
+        if (!isset($config['server']['check_url'])) {
+            $config['server']['check_url'] = $checkUrl;
+        }
 
         return new Manager($this->getServer($config['server']), $this->getProtocol($config['protocol']), $this->client);
     }
