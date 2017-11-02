@@ -7,6 +7,7 @@ The basics
 
 -   [Installation & setup](install.md)
 -   [Configure trusted SSO](trusted.md)
+-   [Using FosUserBundle as user provider](fosuser.md)
 -   Configure open SSO (*to come*)
 
 
